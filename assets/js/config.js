@@ -18,8 +18,8 @@ export const CONFIG = {
     wechat: "./assets/images/Wechat.jpg", // 微信二维码图片路径
     publicAccount: "./assets/images/gzh.jpg", // 公众号二维码图片路径
     contactText: "欢迎添加个人社交媒体互相学习！", // 联系方式文本
-    github: "https://github.com/yourusername", // GitHub链接，请替换为你的GitHub主页
-    blog: "https://museact.ai" // 博客链接
+    github: "https://github.com/miusing", // GitHub链接，请替换为你的GitHub主页
+    blog: "https://blog.museact.ai" // 博客链接
   },
   
   // 关于我部分
@@ -133,10 +133,10 @@ export const CONFIG = {
     year: "2021 - 2025",
     name: "缪斯",
     url: "https://museact.ai",
-    beian: {
-      icp: "晋ICP备2022003280号-3",
-      gongan: "晋公网安备14092802000114号"
-    }
+    // beian: {
+    //   icp: "晋ICP备2022003280号-3",
+    //   gongan: "晋公网安备14092802000114号"
+    // }
   },
   
   // 主题颜色（可选，修改这些颜色来自定义主题）

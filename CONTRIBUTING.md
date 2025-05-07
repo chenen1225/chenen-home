@@ -8,8 +8,8 @@
 
 2. **克隆到本地**：
    ```
-   git clone https://github.com/your-username/muse-personal-page.git
-   cd muse-personal-page
+   git clone https://github.com/your-username/muse-home.git
+   cd muse-home
    ```
 
 3. **创建分支**：
@@ -85,6 +85,6 @@
 如有任何问题，可以通过以下方式联系我们：
 
 - 提交 Issue
-- 发送邮件至 [your-email@example.com](mailto:your-email@example.com)
+- 发送邮件至 [3059233286@qq.com](mailto:3059233286@qq.com)
 
 非常感谢您的贡献！ 

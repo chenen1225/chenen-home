@@ -1,5 +1,5 @@
 {
-  "name": "muse-personal-page",
+  "name": "muse-home",
   "version": "1.0.0",
   "description": "缪斯个人主页模板 - 响应式设计的个人网站",
   "main": "server.js",
@@ -9,7 +9,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/museact/muse-personal-page.git"
+    "url": "git+https://github.com/miusing/muse-home.git"
   },
   "keywords": [
     "personal-website",
@@ -23,9 +23,9 @@
   "author": "缪斯",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/museact/muse-personal-page/issues"
+    "url": "https://github.com/miusing/muse-home/issues"
   },
-  "homepage": "https://github.com/museact/muse-personal-page#readme",
+  "homepage": "https://github.com/miusing/muse-home#readme",
   "devDependencies": {
     "nodemon": "^2.0.22"
   },
