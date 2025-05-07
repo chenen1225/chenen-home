@@ -36,12 +36,12 @@
 
 1. 克隆仓库
    ```
-   git clone https://github.com/museact/muse-personal-page.git
+   git clone https://github.com/miusing/muse-home.git
    ```
 
 2. 打开项目目录
    ```
-   cd muse-personal-page
+   cd myhome
    ```
 
 3. 选择以下任一方式运行：
@@ -113,8 +113,8 @@ export const CONFIG = {
     wechat: "./assets/images/Wechat.jpg", // 微信二维码
     publicAccount: "./assets/images/公众号.jpg", // 公众号二维码
     contactText: "欢迎添加个人社交媒体互相学习！", // 联系文本
-    github: "https://github.com/yourusername", // GitHub链接
-    blog: "https://museact.ai" // 博客链接
+    github: "https://github.com/miusing", // GitHub链接
+    blog: "https://blog.museact.ai" // 博客链接
   },
   
   // 其他配置项...
