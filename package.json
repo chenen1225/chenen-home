@@ -1,0 +1,35 @@
+{
+  "name": "muse-personal-page",
+  "version": "1.0.0",
+  "description": "缪斯个人主页模板 - 响应式设计的个人网站",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/museact/muse-personal-page.git"
+  },
+  "keywords": [
+    "personal-website",
+    "portfolio",
+    "responsive-design",
+    "html5",
+    "css3",
+    "javascript",
+    "es6"
+  ],
+  "author": "缪斯",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/museact/muse-personal-page/issues"
+  },
+  "homepage": "https://github.com/museact/muse-personal-page#readme",
+  "devDependencies": {
+    "nodemon": "^2.0.22"
+  },
+  "engines": {
+    "node": ">=12.0.0"
+  }
+} 
