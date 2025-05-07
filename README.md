@@ -28,7 +28,7 @@
 
 点击下面的按钮，可以直接将此项目部署到Vercel平台：
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fmuseact%2Fmuse-personal-page)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fmiusing%2Fmuse-home)
 
 ## 🚀 快速开始
 
