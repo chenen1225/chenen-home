@@ -1,7 +1,7 @@
 # 缪斯极简个人主页
 
 ## 项目预览
-https://museact.ai
+https://chenen-home.vercel.app/
 
 ## 🧭 项目简介
 
@@ -54,7 +54,7 @@ https://museact.ai
 ### 📱 交互体验
 - **智能设备适配**：桌面悬停效果，移动端触摸反馈
 - **一键复制功能**：微信号快速复制到剪贴板
-- **社交媒体集成**：支持微信、GitHub、YouTube、B站等平台
+- **社交媒体集成**：支持微信、GitHub、B站等平台
 - **二维码展示**：公众号二维码弹窗显示
 
 ### ⚡ 性能优化
@@ -76,14 +76,14 @@ https://museact.ai
 
 点击下面的按钮，可以直接将此项目部署到Vercel平台：
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fmiusing%2Fmuse-home)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fchenen1225%2chenen-home)
 
 ### 部署步骤：
 1. 点击上方 "Deploy with Vercel" 按钮
 2. 使用 GitHub 账号登录 Vercel
 3. 授权 Vercel 访问您的 GitHub 仓库
 4. 等待自动部署完成
-5. 获得您的专属域名，如：`https://your-project.vercel.app`
+5. 获得您的专属域名，如：`https://chenen-home.vercel.app`
 
 ### 自定义域名：
 部署完成后，您可以在 Vercel 控制台中：
@@ -281,12 +281,12 @@ MIT License
 
 如果您在使用过程中遇到问题，可以：
 
-- 提交 [Issue](https://github.com/miusing/muse-home/issues)
-- 查看 [Wiki](https://github.com/miusing/muse-home/wiki)
-- 联系作者：[GitHub](https://github.com/miusing)
+- 提交 [Issue](https://github.com/chenen1225/chenen-home/issues)
+- 查看 [Wiki](https://github.com/chenen1225/chenen-home/wiki)
+- 联系作者：[GitHub](https://github.com/chenen1225)
 
 ---
 
 **注意**：请确保 `assets/images/` 文件夹中包含必要的图片文件（头像、微信二维码等）。
 
-Made with ❤️ by [缪斯](https://github.com/miusing)
+Made with ❤️ by [陈恩](https://github.com/chenen1225)

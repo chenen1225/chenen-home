@@ -39,9 +39,9 @@ const CONFIG = {
 
   // 版权信息
   copyright: {
-    year: "2021 - 2025",
+    year: "1979 - 2025",
     name: "陈恩",
-    url: "https://chenen.club"
+    url: "https://chenen-home.vercel.app"
   },
 
   // 主题颜色
