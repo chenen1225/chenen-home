@@ -1,5 +1,5 @@
 /**
- * 缪斯个人主页 - JavaScript文件
+ * 陈恩个人主页 - JavaScript文件
  * 包含所有功能：配置、动画、工具函数等
  */
 
@@ -7,25 +7,24 @@
 const CONFIG = {
   // 基本信息
   basic: {
-    name: "缪斯",
-    title: "数字游民 & 互联网探索者",
-    location: "中国，成都",
-    avatar: "./assets/images/Muse.jpg",
+    name: "陈恩",
+    title: "AI 知识分享",
+    location: "中国，长沙",
+    avatar: "./assets/images/chenen_logo.jpg",
   },
 
   // 联系方式
   contact: {
-    wechat: "./assets/images/Wechat.jpg",
+    wechat: "./assets/images/Wechat.png",
     publicAccount: "./assets/images/gzh.jpg",
     contactText: "欢迎添加个人社交媒体互相学习！",
-    github: "https://github.com/miusing",
-    youtube: "https://www.youtube.com/@亲爱的缪斯",
-    bilibili: "https://space.bilibili.com/1372455931"
+    github: "https://github.com/chenen1225",
+    bilibili: "https://space.bilibili.com/428143691"
   },
 
   // 关于我部分
   about: {
-    content: "拥有 4 年 AI 算法与应用开发经验，主打 AI 技术栈实践与创新。顺带折腾自媒体和 Crypto，有点野路子但很实战。好奇心重，热爱瞎搞各种新东东。熟练使用 Python，喜欢沉浸在互联网世界中自由穿梭与价值创造。信奉“边学边干”，致力于以技术和内容为驱动，实现可持续的线上收入模式。"
+    content: "AI浪潮中，我筑起文字驿站——用体温镌刻智能纪元的情书。这里寄存碳基文明的诗意，流淌算法难摹的感性光谱。每篇都是时光胶囊，寄给十年后的我与此刻的你。若途经此窗，请饮茶小坐。以汉字为舟，共溯转瞬即逝的心跳。"
   },
 
 
@@ -41,8 +40,8 @@ const CONFIG = {
   // 版权信息
   copyright: {
     year: "2021 - 2025",
-    name: "缪斯",
-    url: "https://museact.ai"
+    name: "陈恩",
+    url: "https://chenen.club"
   },
 
   // 主题颜色
@@ -141,18 +140,18 @@ function applyBasicInfo() {
     if (!CONFIG.basic) return;
 
     const nameElement = document.querySelector('.profile h1');
-    if (nameElement) nameElement.textContent = CONFIG.basic.name || '缪斯';
+    if (nameElement) nameElement.textContent = CONFIG.basic.name || '陈恩';
 
     const titleElement = document.querySelector('.profile .title');
     if (titleElement) {
-        titleElement.innerHTML = `<i class="fas fa-code"></i>${CONFIG.basic.title || '数字游民 & 互联网探索者'}`;
+        titleElement.innerHTML = `<i class="fas fa-code"></i>${CONFIG.basic.title || 'AI 知识分享'}`;
     }
 
     const locationElement = document.querySelector('.location span');
-    if (locationElement) locationElement.textContent = CONFIG.basic.location || '中国，成都';
+    if (locationElement) locationElement.textContent = CONFIG.basic.location || '中国，长沙';
 
     const avatarElement = document.querySelector('.avatar img');
-    if (avatarElement) avatarElement.src = CONFIG.basic.avatar || './assets/images/Muse.jpg';
+    if (avatarElement) avatarElement.src = CONFIG.basic.avatar || './assets/images/chenen_logo.jpg';
 }
 
 function applyContactInfo() {
@@ -444,7 +443,7 @@ function setupPublicAccountQR() {
                     </div>
                     <div class="qr-container">
                         <img src="${CONFIG.contact.publicAccount}" alt="公众号二维码" class="qr-image">
-                        <p class="qr-text">扫码关注「亲爱的缪斯」</p>
+                        <p class="qr-text">扫码关注「我是陈恩」</p>
                     </div>
                 </div>
             `;
