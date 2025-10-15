@@ -930,6 +930,21 @@ body {
     backdrop-filter: blur(10px);
 }
 
+.footer .icp {
+    text-align: center;
+    margin-top: 10px;
+}
+
+.footer .icp a {
+    color: #666;
+    text-decoration: none;
+    font-size: 12px;
+}
+
+.footer .icp a:hover {
+    color: #3b82f6;
+}
+
 .copyright {
     margin-bottom: 0.5rem;
 }
@@ -1233,17 +1248,6 @@ button:active, .social-icon:active {
 
     .social-info p {
         font-size: 0.8rem;
-    }
-
-    .toast {
-        padding: 10px 16px;
-        border-radius: 20px;
-        top: 20px;
-        width: 80%;
-    }
-
-    .toast span {
-        font-size: 0.9rem;
     }
 
     .footer {
