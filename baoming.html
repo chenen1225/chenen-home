@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>通用AI人工智能应用培训课程</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        cyberblue: '#00e4ff',
+                        neonpink: '#ff00ff',
+                        matrixgreen: '#00ff41',
+                        darktech: '#0a0a1f',
+                        deepspace: '#0f102e'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&family=Rajdhani:wght@400;500;700&display=swap');
+        
+        body {
+            font-family: 'Rajdhani', sans-serif;
+            background: linear-gradient(135deg, #080818 0%, #0a0a1f 100%);
+            color: #e0e0ff;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        
+        h1, h2, h3, h4 {
+            font-family: 'Orbitron', sans-serif;
+        }
+        
+        .cyber-glow {
+            text-shadow: 0 0 10px rgba(0, 228, 255, 0.7), 
+                         0 0 20px rgba(0, 228, 255, 0.5),
+                         0 0 30px rgba(0, 228, 255, 0.3);
+        }
+        
+        .neon-border {
+            border: 1px solid rgba(0, 228, 255, 0.3);
+            box-shadow: 0 0 15px rgba(0, 228, 255, 0.3), 
+                        inset 0 0 10px rgba(0, 228, 255, 0.2);
+        }
+        
+        .cyber-card {
+            background: rgba(10, 10, 31, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 228, 255, 0.3);
+            transition: all 0.3s ease;
+            box-shadow: 0 0 10px rgba(0, 228, 255, 0.1);
+        }
+        
+        .cyber-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 20px rgba(0, 228, 255, 0.4), 
+                        0 0 30px rgba(255, 0, 255, 0.2);
+            border: 1px solid rgba(0, 228, 255, 0.7);
+        }
+        
+        .neon-btn {
+            background: linear-gradient(90deg, #00e4ff, #ff00ff);
+            border: none;
+            font-weight: bold;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .neon-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(0, 228, 255, 0.6),
+                        0 0 30px rgba(255, 0, 255, 0.4);
+        }
+        
+        .grid-pattern {
+            background-image: 
+                linear-gradient(rgba(0, 228, 255, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 228, 255, 0.1) 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+        
+        .cyber-line {
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #00e4ff, #ff00ff, transparent);
+            margin: 10px 0;
+        }
+        
+        .binary-animation {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(
+                0deg,
+                rgba(0, 228, 255, 0.05) 0px,
+                rgba(0, 228, 255, 0.05) 1px,
+                transparent 1px,
+                transparent 20px
+            );
+            z-index: -1;
+            opacity: 0.3;
+        }
+        
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(0, 228, 255, 0.4);
+            }
+            70% {
+                box-shadow: 0 0 0 15px rgba(0, 228, 255, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(0, 228, 255, 0);
+            }
+        }
+        
+        .neon-flash {
+            animation: neonFlash 1.5s infinite alternate;
+        }
+        
+        @keyframes neonFlash {
+            0% { opacity: 0.8; }
+            100% { opacity: 1; }
+        }
+        
+        .scan-line {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 10px;
+            background: rgba(0, 228, 255, 0.4);
+            box-shadow: 0 0 10px rgba(0, 228, 255, 0.8);
+            animation: scan 4s linear infinite;
+        }
+        
+        @keyframes scan {
+            0% { top: 0; }
+            50% { top: 100%; }
+            100% { top: 100%; }
+        }
+        
+        .qr-container {
+            position: relative;
+            overflow: hidden;
+            border: 2px solid rgba(0, 228, 255, 0.5);
+            box-shadow: 0 0 15px rgba(0, 228, 255, 0.3);
+        }
+    </style>
+</head>
+<body class="relative overflow-x-hidden">
+    <!-- 二进制背景动画 -->
+    <div class="binary-animation"></div>
+    <!-- 右上角回到主页悬浮图标按钮（点击淡出后导航） -->
+    <a href="index.html" class="back-home-btn" id="backHomeBtn" title="回到主页" aria-label="回到主页">
+        <i class="fas fa-home" aria-hidden="true"></i>
+        <span class="back-home-text">回到主页</span>
+    </a>
+
+    <header class="relative bg-gradient-to-b from-deepspace to-darktech py-16 text-center px-4 z-10">
+        <div class="max-w-6xl mx-auto">
+            <div class="inline-block relative mb-2">
+                <span class="absolute top-0 right-0 -mt-3 -mr-3 px-2 py-1 bg-red-600 text-white text-xs font-bold rounded-full animate-pulse">限时优惠</span>
+                <h1 class="text-5xl md:text-6xl font-bold mb-4 text-cyberblue cyber-glow inline-block">
+                    通用AI应用实操课程
+                </h1>
+            </div>
+            <p class="text-xl md:text-2xl text-white mb-8">赋能未来生产力 · 一日转型AI应用大师</p>
+            
+            <div class="neon-btn text-black py-3 px-8 rounded-full inline-block transform rotate-3 text-lg font-bold pulse">
+                原价<span class="line-through mr-2">499元/人</span> → 
+                <span class="text-xl">限时优惠价<span class="text-white">299元/人</span></span>
+            </div>
+            
+            <div class="cyber-line mt-8 mx-auto max-w-3xl"></div>
+        </div>
+    </header>
+
+    <main class="relative max-w-6xl mx-auto px-4 py-8 z-10">
+        <!-- 课程表部分 -->
+        <section class="mb-16 cyber-card rounded-xl p-6 grid-pattern">
+            <h2 class="text-3xl font-bold mb-6 text-center text-cyberblue cyber-glow">
+                课程内容
+            </h2>
+            
+            <h3 class="text-2xl font-semibold text-center mb-8 bg-gradient-to-r from-cyberblue to-neonpink text-black py-3 rounded-lg">
+                通用AI人工智能应用培训课程安排 (1天/8节课)
+            </h3>
+            
+            <!-- 课程网格布局 -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- 课程卡片（8个） -->
+                <div class="cyber-card p-5 rounded-xl neon-flash">
+                    <p class="text-2xl font-bold text-cyberblue mb-3">1. <span class="text-white">Cherry Studio</span>核心功能</p>
+                    <ul class="space-y-2 pl-4">
+                        <li class="flex items-start">
+                            <i class="fas fa-network-wired text-cyberblue mt-1 mr-2"></i>
+                            <span class="text-white">多模型集成（20+服务商）</span>
+                        </li>
+                        
+                        <li class="flex items-start">
+                            <i class="fas fa-brain text-cyberblue mt-1 mr-2"></i>
+                            <span class="text-white">Agents系统管理</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="cyber-card p-5 rounded-xl neon-flash">
+                    <p class="text-2xl font-bold text-matrixgreen mb-3">2. <span class="text-white">应用场景</span>实战</p>
+                    <ul class="space-y-2 pl-4">
+                        <li class="flex items-start">
+                            <i class="fas fa-file-alt text-matrixgreen mt-1 mr-2"></i>
+                            <span class="text-white">报告/公文合规审查</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-clipboard-list text-matrixgreen mt-1 mr-2"></i>
+                            <span class="text-white">会议纪要生成</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-chart-line text-matrixgreen mt-1 mr-2"></i>
+                            <span class="text-white">数据分析与编程</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="cyber-card p-5 rounded-xl neon-flash">
+                    <p class="text-2xl font-bold text-cyberblue mb-3">3. <span class="text-white">软件安装</span>与API配置</p>
+                    <ul class="space-y-2 pl-4">
+                        <li class="flex items-start">
+                            <i class="fab fa-windows text-cyberblue mt-1 mr-2"></i>
+                            <span class="text-white">Windows/Mac安装指南</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-key text-cyberblue mt-1 mr-2"></i>
+                            <span class="text-white">多平台API申请</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-lock text-cyberblue mt-1 mr-2"></i>
+                            <span class="text-white">密钥安全管理</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="cyber-card p-5 rounded-xl neon-flash">
+                    <p class="text-2xl font-bold text-neonpink mb-3">4. <span class="text-white">助手系统</span>深度应用</p>
+                    <ul class="space-y-2 pl-4">
+                        <li class="flex items-start">
+                            <i class="fas fa-plus-circle text-neonpink mt-1 mr-2"></i>
+                            <span class="text-white">提示词定制</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-sliders-h text-neonpink mt-1 mr-2"></i>
+                            <span class="text-white">模型参数调优</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-comments text-neonpink mt-1 mr-2"></i>
+                            <span class="text-white">对话管理</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="cyber-card p-5 rounded-xl neon-flash">
+                    <p class="text-2xl font-bold text-matrixgreen mb-3">5. <span class="text-white">智能体</span>生态开发</p>
+                    <ul class="space-y-2 pl-4">
+                        <li class="flex items-start">
+                            <i class="fas fa-robot text-matrixgreen mt-1 mr-2"></i>
+                            <span class="text-white">300+智能体调用</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-share-alt text-matrixgreen mt-1 mr-2"></i>
+                            <span class="text-white">智能体导出共享</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-briefcase text-matrixgreen mt-1 mr-2"></i>
+                            <span class="text-white">企业级案例实践</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="cyber-card p-5 rounded-xl neon-flash">
+                    <p class="text-2xl font-bold text-cyberblue mb-3">6. <span class="text-white">多模态</span>功能实践</p>
+                    <ul class="space-y-2 pl-4">
+                        <li class="flex items-start">
+                            <i class="fas fa-paint-brush text-cyberblue mt-1 mr-2"></i>
+                            <span class="text-white">文生图提示工程</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-language text-cyberblue mt-1 mr-2"></i>
+                            <span class="text-white">多语种智能翻译</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-file-image text-cyberblue mt-1 mr-2"></i>
+                            <span class="text-white">图像解析应用</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="cyber-card p-5 rounded-xl neon-flash">
+                    <p class="text-2xl font-bold text-neonpink mb-3">7. <span class="text-white">知识库系统</span>搭建</p>
+                    <ul class="space-y-2 pl-4">
+                        <li class="flex items-start">
+                            <i class="fas fa-cloud text-neonpink mt-1 mr-2"></i>
+                            <span class="text-white">本地/云端知识库</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-chart-pie text-neonpink mt-1 mr-2"></i>
+                            <span class="text-white">文件向量化处理</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-question-circle text-neonpink mt-1 mr-2"></i>
+                            <span class="text-white">问答助手构建</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="cyber-card p-5 rounded-xl neon-flash">
+                    <p class="text-2xl font-bold text-matrixgreen mb-3">8. <span class="text-white">高阶应用</span>整合</p>
+                    <ul class="space-y-2 pl-4">
+                        <li class="flex items-start">
+                            <i class="fas fa-plug text-matrixgreen mt-1 mr-2"></i>
+                            <span class="text-white">第三方工具接入</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-code-branch text-matrixgreen mt-1 mr-2"></i>
+                            <span class="text-white">MCP协议开发</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-brain text-matrixgreen mt-1 mr-2"></i>
+                            <span class="text-white">思源笔记联用</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 招生海报部分 - 科技感设计 -->
+        <section class="cyber-card rounded-2xl p-8 grid-pattern">
+            <h2 class="text-3xl font-bold mb-8 text-center text-cyberblue cyber-glow">
+                培训安排
+            </h2>
+            
+            <!-- 价格横幅 -->
+            <div class="text-center text-lg mb-10 bg-gradient-to-r from-cyberblue to-neonpink text-black py-4 rounded-lg font-bold pulse">
+                1天精华课程 · 8节实战课堂 · 立减200元！<br>每周六开班，长期招生。
+            </div>
+            
+            <!-- 课程信息 -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+                <div>
+                    <h3 class="text-xl font-bold text-cyberblue mb-4 flex items-center">
+                        <i class="fas fa-info-circle mr-2"></i> 课程信息
+                    </h3>
+                    <ul class="space-y-2">
+                        <li class="flex items-start cyber-card p-3 rounded-lg">
+                            <i class="fas fa-clock text-cyberblue mt-1.5 mr-2"></i>
+                            <span><strong class="text-white">时长：</strong><span class="text-white">1天密集培训（8节实操课）</span></span>
+                        </li>
+                        <li class="flex items-start cyber-card p-3 rounded-lg">
+                            <i class="fas fa-laptop text-cyberblue mt-1.5 mr-2"></i>
+                            <span><strong class="text-white">设备要求：</strong><span class="text-white">自备笔记本电脑（Win10+/macOS）</span></span>
+                        </li>
+                        <li class="flex items-start cyber-card p-3 rounded-lg">
+                            <i class="fas fa-gift text-cyberblue mt-1.5 mr-2"></i>
+                            <span><strong class="text-white">特色：</strong><span class="text-white">赠送AI工具包 + 导师长期陪跑</span></span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- 福利列表 -->
+                <div>
+                    <h3 class="text-xl font-bold text-cyberblue mb-4 flex items-center">
+                        <i class="fas fa-star mr-2"></i> 报名即享12大福利
+                    </h3>
+                    <div class="grid grid-cols-2 gap-3">
+                        <div class="cyber-card p-3 rounded-lg">
+                            <p class="text-cyberblue font-semibold">① 全能AI操作系统</p>
+                        </div>
+                        <div class="cyber-card p-3 rounded-lg">
+                            <p class="text-matrixgreen font-semibold">② ¥100算力代金券</p>
+                        </div>
+                        <div class="cyber-card p-3 rounded-lg">
+                            <p class="text-cyberblue font-semibold">③ 300+智能助手</p>
+                        </div>
+                        <div class="cyber-card p-3 rounded-lg">
+                            <p class="text-matrixgreen font-semibold">④ 第三方AI平台接入</p>
+                        </div>
+                        <div class="cyber-card p-3 rounded-lg">
+                            <p class="text-cyberblue font-semibold">⑤ 导师长期陪跑</p>
+                        </div>
+                        <div class="cyber-card p-3 rounded-lg">
+                            <p class="text-matrixgreen font-semibold">⑥ 智能体开发技能</p>
+                        </div>
+                        <div class="cyber-card p-3 rounded-lg">
+                            <p class="text-cyberblue font-semibold">⑦ 多语种翻译官</p>
+                        </div>
+                        <div class="cyber-card p-3 rounded-lg">
+                            <p class="text-matrixgreen font-semibold">⑧ 知识库系统</p>
+                        </div>
+                        <div class="cyber-card p-3 rounded-lg">
+                            <p class="text-cyberblue font-semibold">⑨ 智能问答系统</p>
+                        </div>
+                        <div class="cyber-card p-3 rounded-lg">
+                            <p class="text-matrixgreen font-semibold">⑩ 本地笔记管理</p>
+                        </div>
+                        <div class="cyber-card p-3 rounded-lg">
+                            <p class="text-cyberblue font-semibold">⑪ MCP插件</p>
+                        </div>
+                        <div class="cyber-card p-3 rounded-lg">
+                            <p class="text-matrixgreen font-semibold">⑫ 在线知识库助手</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 优势列表 -->
+            <div class="mb-10">
+                <h3 class="text-xl font-bold text-cyberblue mb-4 flex items-center">
+                    <i class="fas fa-rocket mr-2"></i> 为什么选择我们？
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="cyber-card p-4 rounded-lg flex items-start">
+                        <i class="fas fa-check-circle text-matrixgreen text-xl mt-0.5 mr-3"></i>
+                        <p class="text-white"><strong>掌握Cherry Studio全栈技能</strong></p>
+                    </div>
+                    <div class="cyber-card p-4 rounded-lg flex items-start">
+                        <i class="fas fa-check-circle text-matrixgreen text-xl mt-0.5 mr-3"></i>
+                        <p class="text-white"><strong>33.3K+星标项目实战</strong></p>
+                    </div>
+                    <div class="cyber-card p-4 rounded-lg flex items-start">
+                        <i class="fas fa-check-circle text-matrixgreen text-xl mt-0.5 mr-3"></i>
+                        <p class="text-white"><strong>公文/设计/数据分析全覆盖</strong></p>
+                    </div>
+                    <div class="cyber-card p-4 rounded-lg flex items-start">
+                        <i class="fas fa-check-circle text-matrixgreen text-xl mt-0.5 mr-3"></i>
+                        <p class="text-white"><strong>《AI应用手册》+终身资源</strong></p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 行动号召 -->
+            <div class="text-center pt-6 border-t border-gray-700">
+                <div class="text-2xl font-bold text-cyberblue cyber-glow mb-6">
+                    <i class="fas fa-phone-alt mr-2"></i>立即咨询：15802652221 (微信同号)
+                </div>
+                
+                <div class="neon-btn text-black py-4 px-6 rounded-lg mb-6 inline-block">
+                    <i class="fas fa-gift mr-2"></i> 
+                    前20名报名赠1个月免费算力权限
+                </div>
+                
+                <!-- 新增报名按钮和二维码区域 -->
+                <div class="mt-10">
+                    <h3 class="text-2xl font-bold text-cyberblue cyber-glow mb-6">
+                        立即报名通道
+                    </h3>
+                    
+                    <div class="flex flex-col md:flex-row justify-center items-center gap-10">
+                        <div class="relative">
+                            <a href="https://f.wps.cn/g/lCpCuWPj/" class="neon-btn text-black font-bold py-5 px-16 text-2xl rounded-full text-center inline-flex items-center gap-2 transform transition-transform hover:scale-105">
+                                <i class="fas fa-rocket"></i> 点我立即报名
+                            </a>
+                            <div class="absolute -top-4 -right-4 px-3 py-1 bg-cyberblue text-black text-sm font-bold rounded-full animate-pulse">
+                                快速通道
+                            </div>
+                        </div>
+                        
+                        <div class="text-white text-center">
+                            <div class="text-lg mb-3">扫码报名</div>
+                            <div class="qr-container relative mx-auto w-48 h-48 bg-white p-4 rounded-lg">
+                                <div class="scan-line"></div>
+                                <!-- 二维码图片 -->
+                                <div class="w-full h-full flex items-center justify-center">
+                                    <img src="/assets/images/qr.png" alt="报名二维码" class="max-w-full max-h-full rounded-md shadow-lg" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <blockquote class="text-gray-400 italic mt-8 text-center text-xl max-w-2xl mx-auto">
+                    <i class="fas fa-quote-left opacity-70 mr-2"></i>
+                    让AI门槛归零——一日转型AI应用大师
+                    <i class="fas fa-quote-right opacity-70 ml-2"></i>
+                </blockquote>
+            </div>
+        </section>
+    </main>
+
+    <footer class="relative bg-darktech text-white text-center py-8 mt-12 z-10">
+        <div class="max-w-4xl mx-auto px-4">
+            <p class="mb-4">© 2025 陈恩的AI知识分享 | 赋能未来生产力</p>
+            <p class="text-sm text-gray-400">免责声明：本课程不涉及任何AI模型版权，仅教授工具使用与应用技巧。</p>
+        </div>
+    </footer>
+    <script>
+    // 点击回到主页时添加淡出动画然后导航
+    document.addEventListener('DOMContentLoaded', function() {
+        const btn = document.getElementById('backHomeBtn');
+        if (!btn) return;
+        btn.addEventListener('click', function(e) {
+            e.preventDefault();
+            document.documentElement.classList.add('page-exit');
+            setTimeout(() => {
+                window.location.href = btn.href;
+            }, 260); // 与 CSS 动画时长匹配
+        });
+    });
+    </script>
+</body>
+
+</html>

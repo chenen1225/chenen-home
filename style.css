@@ -1355,3 +1355,195 @@ button:active, .social-icon:active {
         transition: none !important;
     }
 }
+
+/* 通用AI课程卡片样式 */
+.course-card {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+}
+
+.course-inner {
+    padding: 1.25rem;
+    border-radius: 14px;
+    background: linear-gradient(135deg, rgba(59,130,246,0.06), rgba(139,92,246,0.04));
+    border: 1px solid rgba(59,130,246,0.12);
+    box-shadow: 0 6px 18px rgba(59,130,246,0.06);
+    transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+}
+
+.course-inner h3 {
+    margin: 0 0 0.5rem 0;
+    font-size: 1.125rem;
+    color: var(--primary-dark);
+    font-weight: 700;
+}
+
+.course-inner p {
+    margin: 0;
+    color: var(--text-light);
+    line-height: 1.5;
+}
+
+.course-card:hover .course-inner,
+.course-card:focus .course-inner {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 30px rgba(59,130,246,0.12);
+    background: linear-gradient(135deg, rgba(59,130,246,0.09), rgba(139,92,246,0.06));
+}
+
+/* 可访问性：键盘聚焦样式 */
+.course-card:focus {
+    outline: 3px solid rgba(59,130,246,0.18);
+    outline-offset: 3px;
+}
+
+/* 移动端微调 */
+@media screen and (max-width: 480px) {
+    .course-inner {
+        padding: 1rem;
+        border-radius: 12px;
+    }
+    .course-inner h3 {
+        font-size: 1rem;
+    }
+}
+
+/* 价格徽章与 CTA 按钮 */
+.course-badge {
+    display: inline-block;
+    background: linear-gradient(90deg, #ffedd5, #fff7ed);
+    color: #b45309;
+    border: 1px solid rgba(245, 158, 11, 0.15);
+    padding: 0.22rem 0.6rem;
+    border-radius: 999px;
+    font-weight: 700;
+    font-size: 0.88rem;
+    /* remove bottom margin when inline with title */
+    margin: 0;
+}
+
+.course-cta {
+    display: flex;
+    justify-content: center;
+    margin-top: 0.9rem;
+}
+
+/* header: title and badge inline */
+.course-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    margin-bottom: 0.4rem;
+}
+
+/* 在小屏幕上让徽章换行到标题下方 */
+@media screen and (max-width: 480px) {
+    .course-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.4rem;
+    }
+    .course-badge {
+        align-self: flex-start;
+    }
+}
+
+.btn {
+    display: inline-block;
+    padding: 0.55rem 1.1rem;
+    border-radius: 999px;
+    font-weight: 700;
+    cursor: pointer;
+    user-select: none;
+}
+
+.btn-cta {
+    background: linear-gradient(135deg, #ff7a18, #ff5724);
+    color: white;
+    border: none;
+    box-shadow: 0 8px 20px rgba(255, 87, 36, 0.18);
+    transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+
+.btn-cta:active,
+.btn-cta:focus {
+    transform: translateY(-1px);
+}
+
+/* 让整张卡片保持可点击，同时按钮也看起来像独立元素 */
+.course-card { text-decoration: none; }
+.course-card .btn { pointer-events: none; }
+
+/* 回到主页悬浮按钮 */
+.back-home-btn {
+    position: fixed;
+    top: 18px;
+    right: 18px;
+    background: linear-gradient(135deg, #ff7a18, #ff5724);
+    color: #fff;
+    padding: 0.55rem 0.9rem;
+    border-radius: 999px;
+    font-weight: 700;
+    box-shadow: 0 8px 24px rgba(255,87,36,0.18);
+    z-index: 20000;
+    text-decoration: none;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.back-home-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 30px rgba(255,87,36,0.22);
+}
+
+@media screen and (max-width: 480px) {
+    .back-home-btn {
+        top: 12px;
+        right: 12px;
+        padding: 0.45rem 0.7rem;
+        font-size: 0.95rem;
+    }
+}
+
+/* 图标按钮样式 */
+.back-home-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    padding: 0;
+}
+
+.back-home-btn i {
+    font-size: 18px;
+}
+
+.back-home-btn .back-home-text {
+    margin-left: 8px;
+    font-size: 16px;
+    font-weight: 700;
+    color: #fff;
+}
+
+.back-home-btn {
+    padding: 8px 12px;
+    min-width: 110px;
+    height: auto;
+    border-radius: 999px;
+}
+
+.back-home-btn i { font-size: 18px; margin-right: 6px; }
+
+@media screen and (max-width: 480px) {
+    .back-home-btn .back-home-text { display: none; }
+    .back-home-btn { min-width: 44px; padding: 6px; }
+}
+
+/* 页面退出淡出效果 */
+.page-exit {
+    transition: opacity 240ms ease-out, transform 240ms ease-out;
+    opacity: 0;
+    transform: translateY(6px) scale(0.995);
+}

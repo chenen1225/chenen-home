@@ -33,8 +33,16 @@ const CONFIG = {
 
   // 个人产品
   products: {
-    comingSoon: true,
-    productsList: []
+        comingSoon: true,
+        productsList: [
+            {
+                id: 'course-ai-practical',
+                title: '通用AI应用实操课程',
+                description: '赋能未来生产力，一日转型AI应用大师！ 适合入门与进阶学员。涵盖多种AI工具与平台，实操为主。',
+                        href: 'baoming.html',
+                        price: '原价499，现价299元'
+            }
+        ]
   },
 
   // 版权信息
@@ -191,7 +199,32 @@ function applyProductsInfo() {
     const productsContainer = document.querySelector('.products-widget .widget-content');
     if (!productsContainer) return;
 
-    if (CONFIG.products.comingSoon) {
+    // 如果有产品列表则渲染产品卡片，否则根据 comingSoon 显示占位
+    const list = Array.isArray(CONFIG.products.productsList) ? CONFIG.products.productsList : [];
+
+    if (list.length > 0) {
+        // 渲染每个产品为可点击卡片
+        productsContainer.innerHTML = list.map(prod => {
+            const safeTitle = prod.title || '';
+            const safeDesc = prod.description || '';
+            const href = prod.href || '#';
+            const price = prod.price || '';
+            return `
+                <a href="${href}" class="course-card" title="${safeTitle}">
+                    <div class="course-inner">
+                        <div class="course-header">
+                            <h3>${safeTitle}</h3>
+                            ${price ? `<div class="course-badge">${price}</div>` : ''}
+                        </div>
+                        <p>${safeDesc}</p>
+                        <div class="course-cta">
+                            <span class="btn btn-cta">点击查看</span>
+                        </div>
+                    </div>
+                </a>
+            `;
+        }).join('\n');
+    } else if (CONFIG.products.comingSoon) {
         productsContainer.innerHTML = `
             <div class="coming-soon">
                 <div class="coming-soon-icon">
@@ -202,6 +235,8 @@ function applyProductsInfo() {
                 </div>
             </div>
         `;
+    } else {
+        productsContainer.innerHTML = '';
     }
 }
 
