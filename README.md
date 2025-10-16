@@ -1,4 +1,4 @@
-# 缪斯极简个人主页
+# 陈恩极简个人主页
 
 ## 项目预览
 https://chenen-home.vercel.app/
