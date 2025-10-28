@@ -1,0 +1,1007 @@
+/* ===================================
+   知识库页面专用样式
+   AI知识库 - 陈恩
+   =================================== */
+
+/* 全局变量 */
+:root {
+    --knowledge-primary: #3b82f6;
+    --knowledge-primary-light: rgba(59, 130, 246, 0.1);
+    --knowledge-secondary: #8b5cf6;
+    --knowledge-success: #10b981;
+    --knowledge-danger: #ef4444;
+    --knowledge-warning: #f59e0b;
+    --knowledge-bg: #f8fafc;
+    --knowledge-card-bg: rgba(255, 255, 255, 0.95);
+    --knowledge-text: #1e293b;
+    --knowledge-text-light: #64748b;
+    --knowledge-border: #e2e8f0;
+    --knowledge-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    --knowledge-sidebar-width: 500px;
+}
+
+/* 深色主题支持 */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --knowledge-bg: #0f172a;
+        --knowledge-card-bg: rgba(30, 41, 59, 0.95);
+        --knowledge-text: #f1f5f9;
+        --knowledge-text-light: #94a3b8;
+        --knowledge-border: #334155;
+    }
+}
+
+/* 知识库主体样式 */
+.knowledge-body {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    font-family: 'LXGW WenKai Screen', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    color: var(--knowledge-text);
+    margin: 0;
+    padding: 0;
+}
+
+/* 顶部导航栏 */
+.knowledge-header {
+    background: var(--knowledge-card-bg);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--knowledge-border);
+    box-shadow: var(--knowledge-shadow);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.header-content {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+}
+
+.back-home {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--knowledge-primary);
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    transition: all 0.3s ease;
+    font-weight: 500;
+}
+
+.back-home:hover {
+    background: var(--knowledge-primary-light);
+    transform: translateX(-4px);
+}
+
+.knowledge-title {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--knowledge-text);
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.header-actions {
+    display: flex;
+    gap: 0.75rem;
+}
+
+/* 登录/登出按钮 */
+.login-btn,
+.logout-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.625rem 1.25rem;
+    border: none;
+    border-radius: 0.5rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: inherit;
+}
+
+.login-btn {
+    background: linear-gradient(135deg, var(--knowledge-primary), var(--knowledge-secondary));
+    color: white;
+}
+
+.login-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 16px rgba(59, 130, 246, 0.3);
+}
+
+.logout-btn {
+    background: var(--knowledge-danger);
+    color: white;
+}
+
+.logout-btn:hover {
+    background: #dc2626;
+    transform: translateY(-2px);
+}
+
+/* 主容器 */
+.knowledge-container {
+    display: flex;
+    max-width: 1400px;
+    margin: 2rem auto;
+    gap: 2rem;
+    padding: 0 2rem;
+    min-height: calc(100vh - 200px);
+}
+
+/* 左侧边栏 */
+.knowledge-sidebar {
+    width: var(--knowledge-sidebar-width);
+    background: var(--knowledge-card-bg);
+    backdrop-filter: blur(10px);
+    border-radius: 1rem;
+    box-shadow: var(--knowledge-shadow);
+    padding: 1.5rem;
+    height: fit-content;
+    position: sticky;
+    top: 100px;
+}
+
+.sidebar-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid var(--knowledge-border);
+    gap: 0.5rem;
+}
+
+.sidebar-header h2 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--knowledge-text);
+    flex: 1;
+}
+
+.sidebar-header .add-btn {
+    margin-left: 0;
+}
+
+.add-btn {
+    background: var(--knowledge-primary);
+    color: white;
+    border: none;
+    border-radius: 0.5rem;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.add-btn:hover {
+    background: var(--knowledge-secondary);
+    transform: scale(1.1);
+}
+
+/* 文档树 */
+.doc-tree {
+    max-height: 600px;
+    overflow-y: auto;
+    padding-right: 0.5rem;
+}
+
+.doc-tree::-webkit-scrollbar {
+    width: 6px;
+}
+
+.doc-tree::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.doc-tree::-webkit-scrollbar-thumb {
+    background: var(--knowledge-border);
+    border-radius: 3px;
+}
+
+.doc-tree::-webkit-scrollbar-thumb:hover {
+    background: var(--knowledge-primary);
+}
+
+/* 文件夹容器 - 飞书/思源风格 */
+.folder-container {
+    margin-bottom: 0.375rem;
+}
+
+/* 文件夹元素 */
+.doc-tree-folder {
+    padding: 0.5rem 0.75rem;
+    margin-bottom: 0.25rem;
+    border-radius: 0.375rem;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--knowledge-text);
+    font-weight: 600;
+    font-size: 1.5rem;
+    user-select: none;
+    position: relative;
+}
+
+.doc-tree-folder:hover {
+    background: var(--knowledge-primary-light);
+}
+
+.doc-tree-folder.selected {
+    background: rgba(59, 130, 246, 0.15);
+    color: var(--knowledge-primary);
+}
+
+.doc-tree-folder .expand-icon {
+    font-size: 0.75rem;
+    transition: transform 0.2s ease;
+    color: var(--knowledge-text-light);
+    width: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.doc-tree-folder .folder-icon {
+    color: var(--knowledge-secondary);
+    font-size: 1rem;
+}
+
+.doc-tree-folder .folder-name {
+    flex: 1;
+}
+
+.doc-tree-folder .note-count {
+    font-size: 0.8125rem;
+    color: var(--knowledge-text-light);
+    font-weight: 400;
+}
+
+/* 文件夹操作按钮 */
+.folder-actions {
+    display: flex;
+    gap: 0.25rem;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+.doc-tree-folder:hover .folder-actions {
+    opacity: 1;
+}
+
+.folder-action-btn {
+    width: 24px;
+    height: 24px;
+    border: none;
+    background: transparent;
+    color: var(--knowledge-text-light);
+    border-radius: 0.25rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    font-size: 0.75rem;
+}
+
+.folder-action-btn:hover {
+    background: rgba(59, 130, 246, 0.2);
+    color: var(--knowledge-primary);
+}
+
+.folder-action-btn.delete-folder-btn:hover {
+    background: rgba(239, 68, 68, 0.2);
+    color: var(--knowledge-danger);
+}
+
+/* 文件夹下的笔记容器 */
+.folder-notes {
+    margin-left: 1.5rem;
+    padding-left: 0.75rem;
+    border-left: 2px solid var(--knowledge-border);
+    margin-top: 0.25rem;
+    margin-bottom: 0.5rem;
+}
+
+/* 笔记元素 - 飞书/思源风格 */
+.doc-tree-note {
+    padding: 0.5rem 0.75rem;
+    margin-bottom: 0.125rem;
+    border-radius: 0.375rem;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--knowledge-text);
+    font-size: 0.9375rem;
+}
+
+.doc-tree-note:hover {
+    background: var(--knowledge-primary-light);
+}
+
+.doc-tree-note.active {
+    background: var(--knowledge-primary);
+    color: white;
+}
+
+.doc-tree-note .note-icon {
+    font-size: 0.875rem;
+    color: var(--knowledge-text-light);
+}
+
+.doc-tree-note.active .note-icon {
+    color: white;
+}
+
+.doc-tree-note .note-title {
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* 拖拽样式 */
+.doc-tree-note.dragging {
+    opacity: 0.5;
+    cursor: move;
+}
+
+.doc-tree-folder.drag-over {
+    background: rgba(59, 130, 246, 0.25) !important;
+    border: 2px dashed var(--knowledge-primary);
+    transform: scale(1.02);
+}
+
+/* 右侧主内容区 */
+.knowledge-main {
+    flex: 1;
+    background: var(--knowledge-card-bg);
+    backdrop-filter: blur(10px);
+    border-radius: 1rem;
+    box-shadow: var(--knowledge-shadow);
+    padding: 2rem;
+    min-height: 500px;
+}
+
+/* 欢迎屏幕 */
+.welcome-screen {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 400px;
+}
+
+.welcome-content {
+    text-align: center;
+    color: var(--knowledge-text-light);
+}
+
+.welcome-content i {
+    font-size: 4rem;
+    color: var(--knowledge-primary);
+    margin-bottom: 1.5rem;
+    opacity: 0.6;
+}
+
+.welcome-content h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin: 1rem 0;
+    color: var(--knowledge-text);
+}
+
+.welcome-content p {
+    font-size: 1.125rem;
+    color: var(--knowledge-text-light);
+}
+
+/* 笔记显示区域 */
+.note-view {
+    animation: fadeIn 0.4s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.note-header {
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 2px solid var(--knowledge-border);
+}
+
+.note-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--knowledge-text);
+    margin: 0 0 1rem 0;
+}
+
+.note-meta {
+    display: flex;
+    gap: 1.5rem;
+    color: var(--knowledge-text-light);
+    font-size: 0.875rem;
+    margin-bottom: 1rem;
+}
+
+.note-meta span {
+    display: flex;
+    align-items: center;
+    gap: 0.375rem;
+}
+
+.note-actions {
+    display: flex;
+    gap: 0.75rem;
+    margin-top: 1rem;
+}
+
+/* 操作按钮 */
+.action-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.625rem 1.25rem;
+    border: none;
+    border-radius: 0.5rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: inherit;
+}
+
+.edit-btn {
+    background: var(--knowledge-primary);
+    color: white;
+}
+
+.edit-btn:hover {
+    background: var(--knowledge-secondary);
+    transform: translateY(-2px);
+}
+
+.delete-btn {
+    background: var(--knowledge-danger);
+    color: white;
+}
+
+.delete-btn:hover {
+    background: #dc2626;
+    transform: translateY(-2px);
+}
+
+.save-btn {
+    background: var(--knowledge-success);
+    color: white;
+}
+
+.save-btn:hover {
+    background: #059669;
+    transform: translateY(-2px);
+}
+
+.cancel-btn {
+    background: var(--knowledge-text-light);
+    color: white;
+}
+
+.cancel-btn:hover {
+    background: var(--knowledge-text);
+    transform: translateY(-2px);
+}
+
+/* 笔记内容 */
+.note-content {
+    font-size: 1.0625rem;
+    line-height: 1.8;
+    color: var(--knowledge-text);
+}
+
+.note-content h1,
+.note-content h2,
+.note-content h3 {
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    color: var(--knowledge-text);
+}
+
+.note-content p {
+    margin-bottom: 1rem;
+}
+
+.note-content code {
+    background: var(--knowledge-primary-light);
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.25rem;
+    font-family: 'Consolas', 'Monaco', monospace;
+    font-size: 0.875em;
+}
+
+.note-content pre {
+    background: var(--knowledge-primary-light);
+    padding: 1rem;
+    border-radius: 0.5rem;
+    overflow-x: auto;
+    margin: 1.5rem 0;
+}
+
+.note-content pre code {
+    background: none;
+    padding: 0;
+}
+
+/* 笔记编辑区域 */
+.note-edit {
+    animation: fadeIn 0.4s ease;
+}
+
+.edit-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    gap: 1rem;
+}
+
+.edit-title {
+    flex: 1;
+    font-size: 1.5rem;
+    font-weight: 600;
+    padding: 0.75rem 1rem;
+    border: 2px solid var(--knowledge-border);
+    border-radius: 0.5rem;
+    font-family: inherit;
+    color: var(--knowledge-text);
+    background: transparent;
+    transition: all 0.3s ease;
+}
+
+.edit-title:focus {
+    outline: none;
+    border-color: var(--knowledge-primary);
+    box-shadow: 0 0 0 3px var(--knowledge-primary-light);
+}
+
+.edit-actions {
+    display: flex;
+    gap: 0.75rem;
+}
+
+.edit-meta {
+    margin-bottom: 1.5rem;
+    padding: 1rem;
+    background: var(--knowledge-primary-light);
+    border-radius: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.form-row {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.meta-label {
+    font-weight: 600;
+    color: var(--knowledge-text);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9375rem;
+}
+
+.folder-select {
+    padding: 0.75rem 1rem;
+    border: 2px solid var(--knowledge-border);
+    border-radius: 0.5rem;
+    font-family: inherit;
+    font-size: 1rem;
+    color: var(--knowledge-text);
+    background: var(--knowledge-card-bg);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.folder-select:focus {
+    outline: none;
+    border-color: var(--knowledge-primary);
+    box-shadow: 0 0 0 3px var(--knowledge-primary-light);
+}
+
+.folder-select:hover {
+    border-color: var(--knowledge-primary);
+}
+
+.permission-toggle {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    cursor: pointer;
+}
+
+.permission-toggle input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
+
+.permission-toggle small {
+    color: var(--knowledge-text-light);
+    margin-left: 0.5rem;
+}
+
+.edit-content {
+    width: 100%;
+    min-height: 400px;
+    padding: 1rem;
+    border: 2px solid var(--knowledge-border);
+    border-radius: 0.5rem;
+    font-family: inherit;
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--knowledge-text);
+    background: transparent;
+    resize: vertical;
+    transition: all 0.3s ease;
+}
+
+.edit-content:focus {
+    outline: none;
+    border-color: var(--knowledge-primary);
+    box-shadow: 0 0 0 3px var(--knowledge-primary-light);
+}
+
+/* 模态框 */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(4px);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+    animation: fadeIn 0.3s ease;
+}
+
+.modal.active {
+    display: flex;
+}
+
+.modal-content {
+    background: var(--knowledge-card-bg);
+    border-radius: 1rem;
+    padding: 2rem;
+    max-width: 500px;
+    width: 90%;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    position: relative;
+    animation: slideUp 0.3s ease;
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.login-modal-content {
+    max-width: 400px;
+}
+
+.close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    font-size: 1.5rem;
+    color: var(--knowledge-text-light);
+    cursor: pointer;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0.5rem;
+    transition: all 0.3s ease;
+}
+
+.close:hover {
+    background: var(--knowledge-danger);
+    color: white;
+    transform: rotate(90deg);
+}
+
+.modal-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.modal-header i {
+    font-size: 3rem;
+    color: var(--knowledge-primary);
+    margin-bottom: 1rem;
+}
+
+.modal-header h3 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin: 0;
+    color: var(--knowledge-text);
+}
+
+/* 表单 */
+.login-form,
+.input-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.form-group label {
+    font-weight: 600;
+    color: var(--knowledge-text);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.form-group input {
+    padding: 0.75rem 1rem;
+    border: 2px solid var(--knowledge-border);
+    border-radius: 0.5rem;
+    font-family: inherit;
+    font-size: 1rem;
+    color: var(--knowledge-text);
+    background: transparent;
+    transition: all 0.3s ease;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: var(--knowledge-primary);
+    box-shadow: 0 0 0 3px var(--knowledge-primary-light);
+}
+
+.submit-btn {
+    padding: 0.875rem 1.5rem;
+    background: linear-gradient(135deg, var(--knowledge-primary), var(--knowledge-secondary));
+    color: white;
+    border: none;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.submit-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 16px rgba(59, 130, 246, 0.3);
+}
+
+/* Toast 提示 - 参考飞书/思源样式 */
+.toast {
+    position: fixed;
+    top: 80px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--knowledge-success);
+    color: white;
+    padding: 1rem 1.75rem;
+    border-radius: 0.625rem;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.25), 0 4px 12px rgba(0, 0, 0, 0.15);
+    display: none;
+    align-items: center;
+    gap: 0.75rem;
+    z-index: 2000;
+    min-width: 320px;
+    max-width: 560px;
+    font-size: 1rem;
+    font-weight: 500;
+    animation: toastSlideDown 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    backdrop-filter: blur(8px);
+}
+
+@keyframes toastSlideDown {
+    from {
+        opacity: 0;
+        transform: translate(-50%, -30px);
+    }
+    to {
+        opacity: 1;
+        transform: translate(-50%, 0);
+    }
+}
+
+.toast.show {
+    display: flex;
+}
+
+.toast i {
+    font-size: 1.25rem;
+    flex-shrink: 0;
+}
+
+.toast.error {
+    background: var(--knowledge-danger);
+}
+
+.toast.warning {
+    background: var(--knowledge-warning);
+}
+
+.toast.info {
+    background: #3b82f6;
+}
+
+/* 响应式设计 */
+@media (max-width: 1024px) {
+    .knowledge-container {
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+
+    .knowledge-sidebar {
+        width: 100%;
+        position: static;
+    }
+
+    .sidebar-header h2 {
+        font-size: 1.125rem;
+    }
+
+    .doc-tree {
+        max-height: 300px;
+    }
+}
+
+@media (max-width: 768px) {
+    .header-content {
+        padding: 1rem;
+    }
+
+    .knowledge-title {
+        font-size: 1.25rem;
+    }
+
+    .knowledge-title span {
+        display: none;
+    }
+
+    .login-btn span,
+    .logout-btn span {
+        display: none;
+    }
+
+    .knowledge-container {
+        padding: 0 1rem;
+        margin: 1rem auto;
+    }
+
+    .knowledge-main {
+        padding: 1.5rem;
+    }
+
+    .note-title {
+        font-size: 1.5rem;
+    }
+
+    .note-meta {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .toast {
+        top: 70px;
+        min-width: 280px;
+        max-width: calc(100vw - 2rem);
+        font-size: 0.9375rem;
+        padding: 0.875rem 1.5rem;
+    }
+
+    .toast i {
+        font-size: 1.125rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .header-content {
+        gap: 0.5rem;
+    }
+
+    .back-home span {
+        display: none;
+    }
+
+    .knowledge-main {
+        padding: 1rem;
+    }
+
+    .note-title {
+        font-size: 1.25rem;
+    }
+
+    .edit-header {
+        flex-direction: column;
+    }
+
+    .edit-actions {
+        width: 100%;
+        justify-content: stretch;
+    }
+
+    .action-btn {
+        flex: 1;
+    }
+}
+
+/* 打印样式 */
+@media print {
+    .knowledge-header,
+    .knowledge-sidebar,
+    .note-actions,
+    .toast {
+        display: none;
+    }
+
+    .knowledge-container {
+        margin: 0;
+        padding: 0;
+    }
+
+    .knowledge-main {
+        box-shadow: none;
+        border-radius: 0;
+    }
+}

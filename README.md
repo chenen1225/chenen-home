@@ -31,16 +31,24 @@ https://chenen-home.vercel.app/
 
 ```
 .
-├── index.html          # 主HTML文件
-├── style.css           # CSS样式文件
-├── script.js           # JavaScript功能文件
-├── vercel.json         # Vercel部署配置文件
-├── assets/             # 资源文件夹（图片等）
+├── index.html           # 主页HTML文件
+├── baoming.html         # 课程报名页面
+├── knowledge.html       # AI知识库页面
+├── style.css            # 主页样式文件
+├── knowledge-style.css  # 知识库样式文件
+├── script.js            # 主页功能文件
+├── knowledge.js         # 知识库功能文件
+├── vercel.json          # Vercel部署配置文件
+├── assets/              # 资源文件夹（图片等）
 │   └── images/
+│       ├── chenen_logo.jpg  # Logo/头像
 │       ├── Muse.jpg
 │       ├── Wechat.jpg
-│       └── gzh.jpg
-└── README.md           # 项目说明
+│       ├── gzh.jpg
+│       └── qr.png          # 报名二维码
+├── README.md            # 项目说明
+├── CHANGELOG.md         # 修改历史记录
+└── TODO.md              # 待办任务列表
 ```
 
 ## ✨ 核心功能
@@ -56,6 +64,15 @@ https://chenen-home.vercel.app/
 - **一键复制功能**：微信号快速复制到剪贴板
 - **社交媒体集成**：支持微信、GitHub、B站等平台
 - **二维码展示**：公众号二维码弹窗显示
+
+### 📚 AI 知识库系统（NEW）
+- **笔记管理**：创建、编辑、删除笔记，支持 Markdown 格式
+- **文件夹分类**：多层级文件夹管理，展开/折叠功能
+- **拖拽操作**：直观的拖拽笔记到文件夹进行分类
+- **权限控制**：管理员登录系统，公开/私密笔记设置
+- **数据持久化**：本地存储，无需后端数据库
+- **飞书/思源风格**：参考主流笔记应用的 UI/UX 设计
+- **响应式设计**：完美适配桌面和移动设备
 
 ### ⚡ 性能优化
 - **节流优化**：鼠标跟随效果和滚动进度条性能优化
@@ -244,7 +261,19 @@ theme: {
 
 ## 🔄 版本更新记录
 
-### v2.0.0 (当前版本)
+### v2.1.0 (2025-01-25)
+- ✨ 新增 AI 知识库页面 (knowledge.html)
+- 📝 笔记管理功能：创建、编辑、删除笔记
+- 📁 文件夹分类管理：创建文件夹、展开/折叠
+- 🎯 拖拽功能：拖拽笔记到文件夹进行分类
+- 🔐 管理员登录系统（默认账号：admin / admin123）
+- 💾 数据本地持久化（使用 localStorage）
+- 📱 参考飞书/思源笔记的 UI 设计
+- 🎨 Markdown 渲染支持
+- 🐛 修复 Toast 提示在移动端占用满屏的问题
+- 🐛 修复笔记保存到选中文件夹的逻辑问题
+
+### v2.0.0
 - ✨ 极简化设计，移除冗余模块
 - ⚡ 性能大幅优化，减少DOM操作
 - 📱 增强移动端体验

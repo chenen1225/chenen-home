@@ -377,6 +377,10 @@ body {
     background: linear-gradient(135deg, #10b981, #059669) !important;
 }
 
+.knowledge-icon {
+    background: linear-gradient(135deg, #f59e0b, #f97316) !important;
+}
+
 .products-widget .widget-icon {
     background: linear-gradient(135deg, #8b5cf6, #6d28d9) !important;
 }
@@ -456,6 +460,61 @@ body {
 .subscribe-btn:hover {
     transform: translateY(-2px);
     box-shadow: 0 8px 20px rgba(16, 185, 129, 0.3);
+}
+
+/* AI知识库卡片 */
+.knowledge-card {
+    position: relative;
+}
+
+.knowledge-description {
+    margin-bottom: 1.5rem;
+}
+
+.knowledge-description p {
+    margin-bottom: 0.75rem;
+    color: var(--text);
+    font-weight: 500;
+    line-height: 1.7;
+}
+
+.knowledge-description p:last-child {
+    margin-bottom: 0;
+}
+
+.knowledge-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    background: linear-gradient(135deg, #f59e0b, #f97316);
+    color: white;
+    text-decoration: none;
+    padding: 0.875rem 1.75rem;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
+}
+
+.knowledge-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(245, 158, 11, 0.4);
+    background: linear-gradient(135deg, #f97316, #ea580c);
+}
+
+.knowledge-btn i:first-child {
+    font-size: 1.1rem;
+}
+
+.knowledge-btn i:last-child {
+    font-size: 0.9rem;
+    transition: transform 0.3s ease;
+}
+
+.knowledge-btn:hover i:last-child {
+    transform: translateX(4px);
 }
 
 
