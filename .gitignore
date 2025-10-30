@@ -5,6 +5,7 @@
 *.sublime-workspace
 .atom/
 .vs/
+.claude/settings.local.json
 
 # 系统文件
 .DS_Store
