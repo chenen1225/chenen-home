@@ -24,6 +24,10 @@
 				AI知识库
 			</h1>
 			<div class="header-actions">
+				<button id="adminPanelBtn" class="admin-panel-btn" style="display: none;" onclick="window.location.href='admin.html'">
+					<i class="fas fa-shield-halved"></i>
+					<span>管理后台</span>
+				</button>
 				<button id="loginBtn" class="login-btn">
 					<i class="fas fa-user"></i>
 					<span>管理员登录</span>
@@ -51,6 +55,30 @@
 				<button id="addNoteBtn" class="add-btn" style="display: none;" title="添加笔记">
 					<i class="fas fa-plus"></i>
 				</button>
+			</div>
+			<!-- 搜索栏 -->
+			<div class="search-container">
+				<div class="search-box">
+					<i class="fas fa-search search-icon"></i>
+					<input type="text" id="searchInput" class="search-input" placeholder="搜索笔记标题或内容...">
+					<button id="clearSearchBtn" class="clear-search-btn" style="display: none;">
+						<i class="fas fa-times"></i>
+					</button>
+				</div>
+				<div id="searchHistory" class="search-history" style="display: none;">
+					<div class="search-history-header">
+						<span class="search-history-title">
+							<i class="fas fa-history"></i>
+							搜索历史
+						</span>
+						<button id="clearHistoryBtn" class="clear-history-btn">
+							<i class="fas fa-trash"></i>
+						</button>
+					</div>
+					<div id="searchHistoryList" class="search-history-list">
+						<!-- 搜索历史将通过JavaScript动态生成 -->
+					</div>
+				</div>
 			</div>
 			<div class="doc-tree" id="docTree">
 				<!-- 文档树将通过JavaScript动态生成 -->
