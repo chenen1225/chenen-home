@@ -25,15 +25,30 @@ const KnowledgeApp = {
     // 默认管理员账户（实际应用中应该使用后端验证）
     admin: {
         username: 'admin',
-        password: 'admin123'
+        password: 'default_password', // 默认密码占位符（实际验证使用哈希值）
+        passwordHash: null    // 存储哈希密码
     },
 
     // 初始化应用
     init() {
         this.loadData();
+        this.initAdminConfig(); // 初始化管理员配置
         this.bindEvents();
         this.renderDocTree();
         this.checkLoginStatus();
+    },
+
+    // 初始化管理员配置（如果不存在）
+    initAdminConfig() {
+        const savedConfig = localStorage.getItem('knowledge_admin_config');
+        if (!savedConfig) {
+            // 如果没有管理员配置，创建默认配置，包含默认密码的哈希值
+            const defaultAdminConfig = {
+                username: 'admin',
+                passwordHash: '4856b4c766c93797de294cadb3c6ca287703eeba6b8a62c929d37849d826bd17' // Jamesche@19的SHA-256哈希值
+            };
+            localStorage.setItem('knowledge_admin_config', JSON.stringify(defaultAdminConfig));
+        }
     },
 
     // ====================================
@@ -275,19 +290,49 @@ Cherry Studio 是一个强大的AI应用平台，支持多种AI模型的集成�
         document.getElementById('loginForm').reset();
     },
 
-    handleLogin(e) {
+    async handleLogin(e) {
         e.preventDefault();
         const username = document.getElementById('username').value;
         const password = document.getElementById('password').value;
 
-        if (username === this.admin.username && password === this.admin.password) {
-            this.state.isLoggedIn = true;
-            this.saveData();
-            this.checkLoginStatus();
-            this.hideLoginModal();
-            this.showToast('登录成功！');
-        } else {
+        // 检查用户名是否正确
+        if (username !== this.admin.username) {
             this.showToast('用户名或密码错误', 'error');
+            return;
+        }
+
+        // 获取存储的密码哈希
+        const savedConfig = localStorage.getItem('knowledge_admin_config');
+        let storedPasswordHash = null;
+        
+        if (savedConfig) {
+            const config = JSON.parse(savedConfig);
+            storedPasswordHash = config.passwordHash;
+        }
+
+        // 如果存在存储的哈希密码，则验证哈希值
+        if (storedPasswordHash) {
+            const inputPasswordHash = await this.hashPassword(password);
+            if (inputPasswordHash === storedPasswordHash) {
+                this.state.isLoggedIn = true;
+                this.saveData();
+                this.checkLoginStatus();
+                this.hideLoginModal();
+                this.showToast('登录成功！');
+            } else {
+                this.showToast('用户名或密码错误', 'error');
+            }
+        } else {
+            // 如果没有存储的哈希密码，使用默认密码验证（兼容旧版本）
+            if (password === this.admin.password) {
+                this.state.isLoggedIn = true;
+                this.saveData();
+                this.checkLoginStatus();
+                this.hideLoginModal();
+                this.showToast('登录成功！');
+            } else {
+                this.showToast('用户名或密码错误', 'error');
+            }
         }
     },
 
@@ -1268,6 +1313,16 @@ Cherry Studio 是一个强大的AI应用平台，支持多种AI模型的集成�
         const div = document.createElement('div');
         div.textContent = text;
         return div.innerHTML;
+    },
+
+    // 密码哈希函数
+    async hashPassword(password) {
+        const encoder = new TextEncoder();
+        const data = encoder.encode(password);
+        const hash = await crypto.subtle.digest('SHA-256', data);
+        return Array.from(new Uint8Array(hash))
+            .map(b => b.toString(16).padStart(2, '0'))
+            .join('');
     },
 
     // ====================================

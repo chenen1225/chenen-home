@@ -61,10 +61,10 @@ const AdminApp = {
         if (adminConfig) {
             this.state.adminConfig = JSON.parse(adminConfig);
         } else {
-            // 默认配置
+            // 默认配置 - 使用与knowledge.js相同的初始哈希值
             this.state.adminConfig = {
                 username: 'admin',
-                passwordHash: null // 将在首次设置密码时创建
+                passwordHash: '4856b4c766c93797de294cadb3c6ca287703eeba6b8a62c929d37849d826bd17' // Jamesche@19的SHA-256哈希值
             };
         }
 
