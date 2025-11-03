@@ -1,0 +1,12 @@
+/* Simple GitHub-like markdown styles for PDF output */
+body { font-family: Arial, Helvetica, sans-serif; color: #222; padding: 20px; }
+.markdown-body { max-width: 800px; margin: 0 auto; }
+h1, h2, h3, h4, h5 { font-weight: 600; }
+h1 { font-size: 28px; margin-top: 24px; }
+h2 { font-size: 22px; margin-top: 20px; }
+p { line-height: 1.6; font-size: 12pt; }
+pre { background: #f6f8fa; padding: 12px; border-radius: 6px; overflow: auto; }
+code { background: #f6f8fa; padding: 2px 4px; border-radius: 4px; }
+img { max-width: 100%; }
+table { border-collapse: collapse; }
+table, th, td { border: 1px solid #dfe2e5; padding: 6px 10px; }
