@@ -17,21 +17,38 @@ const KnowledgeApp = {
         expandedFolders: {}, // 文件夹展开状态
         draggedNote: null, // 当前拖拽的笔记
         notes: [],
-        folders: []
+        folders: [],
+        searchQuery: '', // 搜索关键词
+        searchHistory: [] // 搜索历史
     },
 
     // 默认管理员账户（实际应用中应该使用后端验证）
     admin: {
         username: 'admin',
-        password: 'admin123'
+        password: 'default_password', // 默认密码占位符（实际验证使用哈希值）
+        passwordHash: null    // 存储哈希密码
     },
 
     // 初始化应用
     init() {
         this.loadData();
+        this.initAdminConfig(); // 初始化管理员配置
         this.bindEvents();
         this.renderDocTree();
         this.checkLoginStatus();
+    },
+
+    // 初始化管理员配置（如果不存在）
+    initAdminConfig() {
+        const savedConfig = localStorage.getItem('knowledge_admin_config');
+        if (!savedConfig) {
+            // 如果没有管理员配置，创建默认配置，包含默认密码的哈希值
+            const defaultAdminConfig = {
+                username: 'admin',
+                passwordHash: '4856b4c766c93797de294cadb3c6ca287703eeba6b8a62c929d37849d826bd17' // Jamesche@19的SHA-256哈希值
+            };
+            localStorage.setItem('knowledge_admin_config', JSON.stringify(defaultAdminConfig));
+        }
     },
 
     // ====================================
@@ -188,6 +205,12 @@ Cherry Studio 是一个强大的AI应用平台，支持多种AI模型的集成�
         if (loginStatus === 'true') {
             this.state.isLoggedIn = true;
         }
+
+        // 加载搜索历史
+        const savedSearchHistory = localStorage.getItem('knowledge_search_history');
+        if (savedSearchHistory) {
+            this.state.searchHistory = JSON.parse(savedSearchHistory);
+        }
     },
 
     // 保存数据到 localStorage
@@ -230,6 +253,18 @@ Cherry Studio 是一个强大的AI应用平台，支持多种AI模型的集成�
         // 图片粘贴事件
         document.getElementById('editContent').addEventListener('paste', (e) => this.handleImagePaste(e));
 
+        // 搜索相关事件
+        const searchInput = document.getElementById('searchInput');
+        searchInput.addEventListener('input', (e) => this.handleSearch(e.target.value));
+        searchInput.addEventListener('focus', () => this.showSearchHistory());
+        searchInput.addEventListener('blur', () => {
+            // 延迟隐藏，以便点击历史记录项
+            setTimeout(() => this.hideSearchHistory(), 200);
+        });
+
+        document.getElementById('clearSearchBtn').addEventListener('click', () => this.clearSearch());
+        document.getElementById('clearHistoryBtn').addEventListener('click', () => this.clearAllSearchHistory());
+
         // 点击模态框外部关闭
         document.getElementById('loginModal').addEventListener('click', (e) => {
             if (e.target.id === 'loginModal') this.hideLoginModal();
@@ -255,19 +290,49 @@ Cherry Studio 是一个强大的AI应用平台，支持多种AI模型的集成�
         document.getElementById('loginForm').reset();
     },
 
-    handleLogin(e) {
+    async handleLogin(e) {
         e.preventDefault();
         const username = document.getElementById('username').value;
         const password = document.getElementById('password').value;
 
-        if (username === this.admin.username && password === this.admin.password) {
-            this.state.isLoggedIn = true;
-            this.saveData();
-            this.checkLoginStatus();
-            this.hideLoginModal();
-            this.showToast('登录成功！');
-        } else {
+        // 检查用户名是否正确
+        if (username !== this.admin.username) {
             this.showToast('用户名或密码错误', 'error');
+            return;
+        }
+
+        // 获取存储的密码哈希
+        const savedConfig = localStorage.getItem('knowledge_admin_config');
+        let storedPasswordHash = null;
+        
+        if (savedConfig) {
+            const config = JSON.parse(savedConfig);
+            storedPasswordHash = config.passwordHash;
+        }
+
+        // 如果存在存储的哈希密码，则验证哈希值
+        if (storedPasswordHash) {
+            const inputPasswordHash = await this.hashPassword(password);
+            if (inputPasswordHash === storedPasswordHash) {
+                this.state.isLoggedIn = true;
+                this.saveData();
+                this.checkLoginStatus();
+                this.hideLoginModal();
+                this.showToast('登录成功！');
+            } else {
+                this.showToast('用户名或密码错误', 'error');
+            }
+        } else {
+            // 如果没有存储的哈希密码，使用默认密码验证（兼容旧版本）
+            if (password === this.admin.password) {
+                this.state.isLoggedIn = true;
+                this.saveData();
+                this.checkLoginStatus();
+                this.hideLoginModal();
+                this.showToast('登录成功！');
+            } else {
+                this.showToast('用户名或密码错误', 'error');
+            }
         }
     },
 
@@ -290,6 +355,7 @@ Cherry Studio 是一个强大的AI应用平台，支持多种AI模型的集成�
         const logoutBtn = document.getElementById('logoutBtn');
         const addNoteBtn = document.getElementById('addNoteBtn');
         const addFolderBtn = document.getElementById('addFolderBtn');
+        const adminPanelBtn = document.getElementById('adminPanelBtn');
         const noteActions = document.getElementById('noteActions');
 
         if (this.state.isLoggedIn) {
@@ -297,6 +363,7 @@ Cherry Studio 是一个强大的AI应用平台，支持多种AI模型的集成�
             logoutBtn.style.display = 'flex';
             addNoteBtn.style.display = 'flex';
             addFolderBtn.style.display = 'flex';
+            if (adminPanelBtn) adminPanelBtn.style.display = 'flex';
             if (this.state.currentNote) {
                 noteActions.style.display = 'flex';
             }
@@ -305,6 +372,7 @@ Cherry Studio 是一个强大的AI应用平台，支持多种AI模型的集成�
             logoutBtn.style.display = 'none';
             addNoteBtn.style.display = 'none';
             addFolderBtn.style.display = 'none';
+            if (adminPanelBtn) adminPanelBtn.style.display = 'none';
             noteActions.style.display = 'none';
         }
     },
@@ -316,6 +384,29 @@ Cherry Studio 是一个强大的AI应用平台，支持多种AI模型的集成�
     renderDocTree() {
         const docTree = document.getElementById('docTree');
         docTree.innerHTML = '';
+
+        // 如果有搜索内容，显示搜索结果
+        if (this.state.searchQuery) {
+            const searchResults = this.searchNotes(this.state.searchQuery);
+
+            if (searchResults.length === 0) {
+                // 无搜索结果
+                docTree.innerHTML = `
+                    <div class="search-no-results">
+                        <i class="fas fa-search"></i>
+                        <p>未找到包含「${this.escapeHtml(this.state.searchQuery)}」的笔记</p>
+                        <button onclick="KnowledgeApp.clearSearch()">清除搜索</button>
+                    </div>
+                `;
+                return;
+            }
+
+            // 显示搜索结果
+            searchResults.forEach(note => {
+                docTree.appendChild(this.createNoteElement(note, this.state.searchQuery));
+            });
+            return;
+        }
 
         // 按文件夹分组
         const groupedNotes = this.groupNotesByFolder();
@@ -479,7 +570,7 @@ Cherry Studio 是一个强大的AI应用平台，支持多种AI模型的集成�
         this.renderDocTree();
     },
 
-    createNoteElement(note) {
+    createNoteElement(note, searchQuery = null) {
         const noteElement = document.createElement('div');
         noteElement.className = 'doc-tree-note';
         if (this.state.currentNote && this.state.currentNote.id === note.id) {
@@ -505,9 +596,14 @@ Cherry Studio 是一个强大的AI应用平台，支持多种AI模型的集成�
             });
         }
 
+        // 标题高亮
+        const highlightedTitle = searchQuery
+            ? this.highlightText(note.title, searchQuery)
+            : this.escapeHtml(note.title);
+
         noteElement.innerHTML = `
             <i class="fas fa-file-alt note-icon"></i>
-            <span class="note-title">${note.title}</span>
+            <span class="note-title">${highlightedTitle}</span>
         `;
 
         noteElement.addEventListener('click', (e) => {
@@ -554,7 +650,17 @@ Cherry Studio 是一个强大的AI应用平台，支持多种AI模型的集成�
         document.getElementById('noteTitle').textContent = note.title;
         document.getElementById('noteDate').textContent = note.date;
         document.getElementById('notePermission').textContent = note.permission === 'public' ? '公开' : '私密';
-        document.getElementById('noteContent').innerHTML = this.renderMarkdown(note.content);
+
+        // 渲染Markdown并高亮搜索关键词
+        let renderedContent = this.renderMarkdown(note.content);
+        if (this.state.searchQuery) {
+            // 在渲染后的HTML中高亮搜索关键词
+            const tempDiv = document.createElement('div');
+            tempDiv.innerHTML = renderedContent;
+            this.highlightInElement(tempDiv, this.state.searchQuery);
+            renderedContent = tempDiv.innerHTML;
+        }
+        document.getElementById('noteContent').innerHTML = renderedContent;
 
         // 更新操作按钮显示
         if (this.state.isLoggedIn) {
@@ -563,6 +669,51 @@ Cherry Studio 是一个强大的AI应用平台，支持多种AI模型的集成�
 
         // 重新渲染文档树以更新高亮
         this.renderDocTree();
+    },
+
+    // 在DOM元素中高亮文本
+    highlightInElement(element, query) {
+        const walker = document.createTreeWalker(
+            element,
+            NodeFilter.SHOW_TEXT,
+            null,
+            false
+        );
+
+        const nodesToReplace = [];
+        let node;
+
+        while (node = walker.nextNode()) {
+            if (node.textContent.toLowerCase().includes(query.toLowerCase())) {
+                nodesToReplace.push(node);
+            }
+        }
+
+        nodesToReplace.forEach(node => {
+            const parent = node.parentNode;
+            const text = node.textContent;
+            const regex = new RegExp(`(${this.escapeRegex(query)})`, 'gi');
+            const parts = text.split(regex);
+
+            const fragment = document.createDocumentFragment();
+            parts.forEach(part => {
+                if (part.toLowerCase() === query.toLowerCase()) {
+                    const span = document.createElement('span');
+                    span.className = 'search-highlight';
+                    span.textContent = part;
+                    fragment.appendChild(span);
+                } else {
+                    fragment.appendChild(document.createTextNode(part));
+                }
+            });
+
+            parent.replaceChild(fragment, node);
+        });
+    },
+
+    // 转义正则表达式特殊字符
+    escapeRegex(text) {
+        return text.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
     },
 
     // ====================================
@@ -1034,6 +1185,144 @@ Cherry Studio 是一个强大的AI应用平台，支持多种AI模型的集成�
             console.error('图片上传错误:', error);
             throw new Error('网络错误，请检查网络连接');
         }
+    },
+
+    // ====================================
+    // 搜索功能
+    // ====================================
+
+    // 处理搜索
+    handleSearch(query) {
+        this.state.searchQuery = query.trim();
+
+        // 显示/隐藏清除按钮
+        const clearBtn = document.getElementById('clearSearchBtn');
+        if (this.state.searchQuery) {
+            clearBtn.style.display = 'flex';
+        } else {
+            clearBtn.style.display = 'none';
+        }
+
+        // 隐藏搜索历史
+        this.hideSearchHistory();
+
+        // 重新渲染文档树
+        this.renderDocTree();
+
+        // 如果有搜索内容，保存到搜索历史
+        if (this.state.searchQuery && this.state.searchQuery.length >= 2) {
+            this.addToSearchHistory(this.state.searchQuery);
+        }
+    },
+
+    // 清除搜索
+    clearSearch() {
+        this.state.searchQuery = '';
+        document.getElementById('searchInput').value = '';
+        document.getElementById('clearSearchBtn').style.display = 'none';
+        this.renderDocTree();
+    },
+
+    // 添加到搜索历史
+    addToSearchHistory(query) {
+        // 去重
+        this.state.searchHistory = this.state.searchHistory.filter(item => item !== query);
+        // 添加到开头
+        this.state.searchHistory.unshift(query);
+        // 限制历史记录数量为10条
+        if (this.state.searchHistory.length > 10) {
+            this.state.searchHistory = this.state.searchHistory.slice(0, 10);
+        }
+        // 保存到localStorage
+        localStorage.setItem('knowledge_search_history', JSON.stringify(this.state.searchHistory));
+    },
+
+    // 显示搜索历史
+    showSearchHistory() {
+        if (this.state.searchHistory.length === 0 || this.state.searchQuery) {
+            return;
+        }
+
+        const historyContainer = document.getElementById('searchHistory');
+        const historyList = document.getElementById('searchHistoryList');
+
+        historyList.innerHTML = '';
+
+        this.state.searchHistory.forEach(query => {
+            const item = document.createElement('div');
+            item.className = 'search-history-item';
+            item.innerHTML = `
+                <i class="fas fa-clock"></i>
+                <span>${this.escapeHtml(query)}</span>
+            `;
+            item.addEventListener('click', () => {
+                document.getElementById('searchInput').value = query;
+                this.handleSearch(query);
+            });
+            historyList.appendChild(item);
+        });
+
+        historyContainer.style.display = 'block';
+    },
+
+    // 隐藏搜索历史
+    hideSearchHistory() {
+        document.getElementById('searchHistory').style.display = 'none';
+    },
+
+    // 清除所有搜索历史
+    clearAllSearchHistory() {
+        if (confirm('确定要清除所有搜索历史吗？')) {
+            this.state.searchHistory = [];
+            localStorage.removeItem('knowledge_search_history');
+            this.hideSearchHistory();
+            this.showToast('搜索历史已清除');
+        }
+    },
+
+    // 搜索笔记（标题和内容）
+    searchNotes(query) {
+        if (!query) {
+            return this.state.notes;
+        }
+
+        const lowerQuery = query.toLowerCase();
+        return this.state.notes.filter(note => {
+            const titleMatch = note.title.toLowerCase().includes(lowerQuery);
+            const contentMatch = note.content.toLowerCase().includes(lowerQuery);
+            return titleMatch || contentMatch;
+        });
+    },
+
+    // 高亮搜索关键词
+    highlightText(text, query) {
+        if (!query || !text) {
+            return this.escapeHtml(text);
+        }
+
+        const escapedText = this.escapeHtml(text);
+        const escapedQuery = this.escapeHtml(query);
+
+        // 使用正则表达式进行大小写不敏感的替换
+        const regex = new RegExp(`(${escapedQuery})`, 'gi');
+        return escapedText.replace(regex, '<span class="search-highlight">$1</span>');
+    },
+
+    // HTML转义
+    escapeHtml(text) {
+        const div = document.createElement('div');
+        div.textContent = text;
+        return div.innerHTML;
+    },
+
+    // 密码哈希函数
+    async hashPassword(password) {
+        const encoder = new TextEncoder();
+        const data = encoder.encode(password);
+        const hash = await crypto.subtle.digest('SHA-256', data);
+        return Array.from(new Uint8Array(hash))
+            .map(b => b.toString(16).padStart(2, '0'))
+            .join('');
     },
 
     // ====================================

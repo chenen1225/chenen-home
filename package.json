@@ -1,0 +1,13 @@
+{
+  "name": "chenen-home-tools",
+  "version": "0.1.0",
+  "description": "工具：将仓库中的 Markdown 文件转换为 PDF",
+  "private": true,
+  "scripts": {
+    "md-to-pdf": "node tools/convert-md-to-pdf.js"
+  },
+  "dependencies": {
+    "marked": "^9.0.0",
+    "puppeteer": "^21.3.8"
+  }
+}

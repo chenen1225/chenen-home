@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>管理后台 - AI知识库</title>
+	<meta name="description" content="AI知识库管理后台，数据统计与管理">
+	<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/lxgw-wenkai-screen-webfont@1.1.0/style.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+	<link rel="stylesheet" href="admin-style.css">
+	<link rel="icon" href="assets/images/chenen_logo.jpg">
+</head>
+<body class="admin-body">
+	<!-- 顶部导航栏 -->
+	<header class="admin-header">
+		<div class="header-left">
+			<div class="logo">
+				<i class="fas fa-shield-halved"></i>
+				<span class="logo-text">管理后台</span>
+			</div>
+		</div>
+		<div class="header-right">
+			<div class="user-info">
+				<i class="fas fa-user-circle"></i>
+				<span id="adminUsername">admin</span>
+			</div>
+			<button id="backToKnowledge" class="header-btn">
+				<i class="fas fa-book"></i>
+				<span>返回知识库</span>
+			</button>
+			<button id="logoutBtn" class="header-btn logout">
+				<i class="fas fa-sign-out-alt"></i>
+				<span>退出登录</span>
+			</button>
+		</div>
+	</header>
+
+	<!-- 主容器 -->
+	<div class="admin-container">
+		<!-- 左侧导航 -->
+		<aside class="admin-sidebar">
+			<nav class="sidebar-nav">
+				<a href="#dashboard" class="nav-item active" data-section="dashboard">
+					<i class="fas fa-chart-line"></i>
+					<span>数据统计</span>
+				</a>
+				<a href="#notes" class="nav-item" data-section="notes">
+					<i class="fas fa-file-alt"></i>
+					<span>笔记管理</span>
+				</a>
+				<a href="#settings" class="nav-item" data-section="settings">
+					<i class="fas fa-cog"></i>
+					<span>系统设置</span>
+				</a>
+				<a href="#backup" class="nav-item" data-section="backup">
+					<i class="fas fa-database"></i>
+					<span>数据备份</span>
+				</a>
+			</nav>
+		</aside>
+
+		<!-- 主内容区 -->
+		<main class="admin-main">
+			<!-- 数据统计看板 -->
+			<section id="dashboard-section" class="content-section active">
+				<div class="section-header">
+					<h1>
+						<i class="fas fa-chart-line"></i>
+						数据统计看板
+					</h1>
+					<p class="section-desc">知识库整体数据概览</p>
+				</div>
+
+				<!-- 统计卡片 -->
+				<div class="stats-grid">
+					<div class="stat-card">
+						<div class="stat-icon primary">
+							<i class="fas fa-file-alt"></i>
+						</div>
+						<div class="stat-content">
+							<div class="stat-value" id="totalNotes">0</div>
+							<div class="stat-label">笔记总数</div>
+						</div>
+					</div>
+
+					<div class="stat-card">
+						<div class="stat-icon success">
+							<i class="fas fa-folder"></i>
+						</div>
+						<div class="stat-content">
+							<div class="stat-value" id="totalFolders">0</div>
+							<div class="stat-label">文件夹数量</div>
+						</div>
+					</div>
+
+					<div class="stat-card">
+						<div class="stat-icon warning">
+							<i class="fas fa-eye"></i>
+						</div>
+						<div class="stat-content">
+							<div class="stat-value" id="publicNotes">0</div>
+							<div class="stat-label">公开笔记</div>
+						</div>
+					</div>
+
+					<div class="stat-card">
+						<div class="stat-icon danger">
+							<i class="fas fa-lock"></i>
+						</div>
+						<div class="stat-content">
+							<div class="stat-value" id="privateNotes">0</div>
+							<div class="stat-label">私密笔记</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- 图表区域 -->
+				<div class="charts-grid">
+					<div class="chart-card">
+						<div class="card-header">
+							<h3>笔记分布</h3>
+							<span class="card-subtitle">按文件夹</span>
+						</div>
+						<div class="chart-container">
+							<canvas id="folderChart"></canvas>
+						</div>
+					</div>
+
+					<div class="chart-card">
+						<div class="card-header">
+							<h3>存储空间</h3>
+							<span class="card-subtitle">LocalStorage 使用情况</span>
+						</div>
+						<div class="storage-info">
+							<div class="storage-bar">
+								<div class="storage-used" id="storageBar"></div>
+							</div>
+							<div class="storage-stats">
+								<span id="storageUsed">0 KB</span> / <span id="storageTotal">5 MB</span>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- 快捷操作 -->
+				<div class="quick-actions">
+					<h3>快捷操作</h3>
+					<div class="actions-grid">
+						<button class="action-card" onclick="window.location.href='knowledge.html'">
+							<i class="fas fa-plus"></i>
+							<span>创建新笔记</span>
+						</button>
+						<button class="action-card" onclick="AdminApp.showSection('backup')">
+							<i class="fas fa-download"></i>
+							<span>备份数据</span>
+						</button>
+						<button class="action-card" onclick="AdminApp.showSection('notes')">
+							<i class="fas fa-tasks"></i>
+							<span>批量管理</span>
+						</button>
+					</div>
+				</div>
+			</section>
+
+			<!-- 笔记管理 -->
+			<section id="notes-section" class="content-section">
+				<div class="section-header">
+					<h1>
+						<i class="fas fa-file-alt"></i>
+						笔记批量管理
+					</h1>
+					<p class="section-desc">查看、编辑、批量操作所有笔记</p>
+				</div>
+
+				<!-- 工具栏 -->
+				<div class="toolbar">
+					<div class="toolbar-left">
+						<div class="search-box">
+							<i class="fas fa-search"></i>
+							<input type="text" id="notesSearchInput" placeholder="搜索笔记...">
+						</div>
+						<select id="folderFilter" class="filter-select">
+							<option value="">所有文件夹</option>
+						</select>
+						<select id="permissionFilter" class="filter-select">
+							<option value="">所有权限</option>
+							<option value="public">公开</option>
+							<option value="private">私密</option>
+						</select>
+					</div>
+					<div class="toolbar-right">
+						<button id="selectAllBtn" class="toolbar-btn">
+							<i class="fas fa-check-square"></i>
+							全选
+						</button>
+						<button id="batchDeleteBtn" class="toolbar-btn danger" disabled>
+							<i class="fas fa-trash"></i>
+							批量删除
+						</button>
+						<button id="batchMoveBtn" class="toolbar-btn" disabled>
+							<i class="fas fa-folder-open"></i>
+							批量移动
+						</button>
+						<button id="batchPermissionBtn" class="toolbar-btn" disabled>
+							<i class="fas fa-key"></i>
+							批量修改权限
+						</button>
+					</div>
+				</div>
+
+				<!-- 笔记列表 -->
+				<div class="notes-table-container">
+					<table class="notes-table">
+						<thead>
+							<tr>
+								<th width="40"><input type="checkbox" id="selectAllCheckbox"></th>
+								<th width="50%">标题</th>
+								<th width="15%">文件夹</th>
+								<th width="10%">权限</th>
+								<th width="15%">更新日期</th>
+								<th width="10%">操作</th>
+							</tr>
+						</thead>
+						<tbody id="notesTableBody">
+							<!-- 动态生成 -->
+						</tbody>
+					</table>
+				</div>
+			</section>
+
+			<!-- 系统设置 -->
+			<section id="settings-section" class="content-section">
+				<div class="section-header">
+					<h1>
+						<i class="fas fa-cog"></i>
+						系统设置
+					</h1>
+					<p class="section-desc">管理后台配置与安全设置</p>
+				</div>
+
+				<div class="settings-grid">
+					<!-- 管理员设置 -->
+					<div class="settings-card">
+						<div class="card-header">
+							<h3>
+								<i class="fas fa-user-shield"></i>
+								管理员设置
+							</h3>
+						</div>
+						<div class="card-body">
+							<div class="form-group">
+								<label>当前用户名</label>
+								<input type="text" id="settingsUsername" class="form-input" value="admin">
+							</div>
+							<div class="form-group">
+								<label>修改密码</label>
+								<input type="password" id="newPassword" class="form-input" placeholder="输入新密码">
+							</div>
+							<div class="form-group">
+								<label>确认密码</label>
+								<input type="password" id="confirmPassword" class="form-input" placeholder="再次输入新密码">
+							</div>
+							<button id="updatePasswordBtn" class="btn btn-primary">
+								<i class="fas fa-save"></i>
+								更新密码
+							</button>
+						</div>
+					</div>
+
+					<!-- 站点配置 -->
+					<div class="settings-card">
+						<div class="card-header">
+							<h3>
+								<i class="fas fa-globe"></i>
+								站点配置
+							</h3>
+						</div>
+						<div class="card-body">
+							<div class="form-group">
+								<label>网站标题</label>
+								<input type="text" id="siteTitle" class="form-input" value="AI知识库">
+							</div>
+							<div class="form-group">
+								<label>默认笔记权限</label>
+								<select id="defaultPermission" class="form-select">
+									<option value="public">公开</option>
+									<option value="private">私密</option>
+								</select>
+							</div>
+							<div class="form-group">
+								<label>搜索历史保留数量</label>
+								<input type="number" id="searchHistoryLimit" class="form-input" value="10" min="5" max="50">
+							</div>
+							<button id="saveSiteConfigBtn" class="btn btn-primary">
+								<i class="fas fa-save"></i>
+								保存配置
+							</button>
+						</div>
+					</div>
+
+					<!-- 数据管理 -->
+					<div class="settings-card">
+						<div class="card-header">
+							<h3>
+								<i class="fas fa-database"></i>
+								数据管理
+							</h3>
+						</div>
+						<div class="card-body">
+							<div class="info-item">
+								<span>LocalStorage 使用量</span>
+								<strong id="storageUsageInfo">0 KB</strong>
+							</div>
+							<div class="info-item">
+								<span>笔记数据大小</span>
+								<strong id="notesDataSize">0 KB</strong>
+							</div>
+							<button id="clearCacheBtn" class="btn btn-warning">
+								<i class="fas fa-broom"></i>
+								清理缓存
+							</button>
+							<button id="resetAllDataBtn" class="btn btn-danger">
+								<i class="fas fa-exclamation-triangle"></i>
+								重置所有数据
+							</button>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<!-- 数据备份与恢复 -->
+			<section id="backup-section" class="content-section">
+				<div class="section-header">
+					<h1>
+						<i class="fas fa-database"></i>
+						数据备份与恢复
+					</h1>
+					<p class="section-desc">导出与导入知识库数据</p>
+				</div>
+
+				<div class="backup-grid">
+					<!-- 数据导出 -->
+					<div class="backup-card">
+						<div class="card-header">
+							<h3>
+								<i class="fas fa-file-export"></i>
+								数据导出
+							</h3>
+						</div>
+						<div class="card-body">
+							<p class="card-desc">将知识库数据导出为JSON文件，妥善保存备份</p>
+							<div class="form-group">
+								<label>导出范围</label>
+								<select id="exportScope" class="form-select">
+									<option value="all">完整数据（推荐）</option>
+									<option value="notes">仅笔记</option>
+									<option value="folders">仅文件夹</option>
+								</select>
+							</div>
+							<div class="form-group">
+								<label>选择文件夹（可选）</label>
+								<select id="exportFolder" class="form-select">
+									<option value="">所有文件夹</option>
+								</select>
+							</div>
+							<button id="exportJsonBtn" class="btn btn-success btn-block">
+								<i class="fas fa-download"></i>
+								导出 JSON 数据
+							</button>
+							<button id="exportMarkdownBtn" class="btn btn-primary btn-block">
+								<i class="fab fa-markdown"></i>
+								导出 Markdown 文件
+							</button>
+						</div>
+					</div>
+
+					<!-- 数据导入 -->
+					<div class="backup-card">
+						<div class="card-header">
+							<h3>
+								<i class="fas fa-file-import"></i>
+								数据导入
+							</h3>
+						</div>
+						<div class="card-body">
+							<p class="card-desc warning-text">
+								<i class="fas fa-exclamation-triangle"></i>
+								导入数据将会覆盖现有数据，请谨慎操作！
+							</p>
+							<div class="form-group">
+								<label>导入模式</label>
+								<select id="importMode" class="form-select">
+									<option value="merge">合并模式（保留现有数据）</option>
+									<option value="replace">覆盖模式（删除现有数据）</option>
+								</select>
+							</div>
+							<div class="file-upload-area" id="fileUploadArea">
+								<i class="fas fa-cloud-upload-alt"></i>
+								<p>点击或拖拽JSON文件到此处</p>
+								<input type="file" id="importFileInput" accept=".json" hidden>
+							</div>
+							<button id="importDataBtn" class="btn btn-primary btn-block" disabled>
+								<i class="fas fa-upload"></i>
+								开始导入
+							</button>
+						</div>
+					</div>
+
+					<!-- 自动备份提醒 -->
+					<div class="backup-card">
+						<div class="card-header">
+							<h3>
+								<i class="fas fa-clock"></i>
+								自动备份提醒
+							</h3>
+						</div>
+						<div class="card-body">
+							<div class="info-item">
+								<span>上次备份时间</span>
+								<strong id="lastBackupTime">从未备份</strong>
+							</div>
+							<div class="info-item">
+								<span>距离上次备份</span>
+								<strong id="backupDaysAgo" class="text-warning">-</strong>
+							</div>
+							<div class="form-group">
+								<label>
+									<input type="checkbox" id="enableBackupReminder" checked>
+									启用备份提醒（7天）
+								</label>
+							</div>
+							<button id="backupNowBtn" class="btn btn-success btn-block">
+								<i class="fas fa-save"></i>
+								立即备份
+							</button>
+						</div>
+					</div>
+				</div>
+			</section>
+		</main>
+	</div>
+
+	<!-- Toast 提示 -->
+	<div id="toast" class="toast">
+		<i class="fas fa-check-circle"></i>
+		<span id="toastMessage"></span>
+	</div>
+
+	<!-- 批量移动弹窗 -->
+	<div id="batchMoveModal" class="modal">
+		<div class="modal-content">
+			<span class="close" id="closeBatchMoveModal">
+				<i class="fas fa-times"></i>
+			</span>
+			<div class="modal-header">
+				<i class="fas fa-folder-open"></i>
+				<h3>批量移动笔记</h3>
+			</div>
+			<div class="modal-body">
+				<p>已选择 <strong id="selectedCount">0</strong> 篇笔记</p>
+				<div class="form-group">
+					<label>目标文件夹</label>
+					<select id="targetFolder" class="form-select">
+						<option value="">未分类</option>
+					</select>
+				</div>
+				<button id="confirmBatchMoveBtn" class="btn btn-primary btn-block">
+					<i class="fas fa-check"></i>
+					确认移动
+				</button>
+			</div>
+		</div>
+	</div>
+
+	<!-- 批量修改权限弹窗 -->
+	<div id="batchPermissionModal" class="modal">
+		<div class="modal-content">
+			<span class="close" id="closeBatchPermissionModal">
+				<i class="fas fa-times"></i>
+			</span>
+			<div class="modal-header">
+				<i class="fas fa-key"></i>
+				<h3>批量修改权限</h3>
+			</div>
+			<div class="modal-body">
+				<p>已选择 <strong id="selectedCountPermission">0</strong> 篇笔记</p>
+				<div class="form-group">
+					<label>新权限</label>
+					<select id="targetPermission" class="form-select">
+						<option value="public">公开</option>
+						<option value="private">私密</option>
+					</select>
+				</div>
+				<button id="confirmBatchPermissionBtn" class="btn btn-primary btn-block">
+					<i class="fas fa-check"></i>
+					确认修改
+				</button>
+			</div>
+		</div>
+	</div>
+
+	<script src="admin.js"></script>
+</body>
+</html>
