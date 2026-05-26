@@ -278,6 +278,32 @@ html:not(.dark) .glass-card:hover {
 }
 
 /* 大模型协同的卡片背景 */
+
+	/* 1. 流程图容器 & 2. 提示词工程 vs 上下文工程：bg-[#0f172a]/80 → 浅色 */
+	html:not(.dark) .bg-\[\#0f172a\]\/80 {
+	    background-color: rgba(255, 255, 255, 0.9) !important;
+	    border-color: rgba(0, 0, 0, 0.08) !important;
+	}
+
+	/* 3. 垂直搜索工具 & AI Agent工作台：bg-slate-800 → 白色卡片 */
+	html:not(.dark) .bg-slate-800 {
+	    background-color: #ffffff !important;
+	    border-color: rgba(0, 0, 0, 0.08) !important;
+	    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03) !important;
+	}
+	html:not(.dark) .bg-slate-800:hover {
+	    background-color: #ffffff !important;
+	    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.08) !important;
+	}
+
+	/* 3. 垂直搜索工具 & AI Agent工作台：标题文字颜色 */
+	html:not(.dark) .group-hover\:text-emerald-300:hover { color: #047857 !important; }
+	html:not(.dark) .group-hover\:text-pink-300:hover { color: #be185d !important; }
+	html:not(.dark) .text-emerald-300 { color: #047857 !important; }
+	html:not(.dark) .text-pink-300 { color: #be185d !important; }
+
+	/* 4. 生态关联关系 & 技术发展趋势：列表文字颜色 */
+	html:not(.dark) .text-slate-200 { color: #1e293b !important; }
 html:not(.dark) .bg-blue-600\/20 { background-color: rgba(37, 99, 235, 0.08) !important; }
 html:not(.dark) .bg-violet-600\/20 { background-color: rgba(139, 92, 246, 0.08) !important; }
 html:not(.dark) .bg-orange-500\/10 { background-color: rgba(249, 115, 22, 0.06) !important; }
