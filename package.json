@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "marked": "^9.0.0",
+    "oh-my-opencode-windows-x64": "^3.2.1",
     "puppeteer": "^21.3.8"
   }
 }
