@@ -381,6 +381,10 @@ body {
     background: linear-gradient(135deg, #f59e0b, #f97316) !important;
 }
 
+.atlas-widget .widget-icon {
+    background: linear-gradient(135deg, #3b82f6, #06b6d4) !important;
+}
+
 .products-widget .widget-icon {
     background: linear-gradient(135deg, #8b5cf6, #6d28d9) !important;
 }
@@ -460,6 +464,59 @@ body {
 .subscribe-btn:hover {
     transform: translateY(-2px);
     box-shadow: 0 8px 20px rgba(16, 185, 129, 0.3);
+}
+
+/* AI全景图谱卡片 */
+.atlas-card {
+    position: relative;
+}
+
+.atlas-description {
+    margin-bottom: 1.5rem;
+}
+
+.atlas-description p {
+    margin-bottom: 0.75rem;
+    color: var(--text);
+    font-weight: 500;
+    line-height: 1.7;
+}
+
+.atlas-description p:last-child {
+    margin-bottom: 0;
+}
+
+.atlas-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    background: linear-gradient(135deg, #3b82f6, #06b6d4);
+    color: white;
+    text-decoration: none;
+    padding: 0.875rem 1.75rem;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+}
+
+.atlas-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(59, 130, 246, 0.4);
+}
+
+.atlas-btn i:first-child {
+    font-size: 1.1rem;
+}
+
+.atlas-btn i:last-child {
+    transition: transform 0.3s ease;
+}
+
+.atlas-btn:hover i:last-child {
+    transform: translateX(4px);
 }
 
 /* AI知识库卡片 */
