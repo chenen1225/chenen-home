@@ -40,7 +40,7 @@ const CONFIG = {
                 title: '通用AI应用实操课程',
                 description: '赋能未来生产力，一日转型AI应用大师！ 适合入门与进阶学员。涵盖多种AI工具与平台，实操为主。',
                         href: 'baoming.html',
-                        price: '原价499，现价299元'
+                        price: '原价499，现价399元'
             }
         ]
   },
