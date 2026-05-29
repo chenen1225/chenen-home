@@ -385,6 +385,10 @@ body {
     background: linear-gradient(135deg, #3b82f6, #06b6d4) !important;
 }
 
+.practice-icon {
+    background: linear-gradient(135deg, #8b5cf6, #a855f7) !important;
+}
+
 .products-widget .widget-icon {
     background: linear-gradient(135deg, #8b5cf6, #6d28d9) !important;
 }
@@ -571,6 +575,61 @@ body {
 }
 
 .knowledge-btn:hover i:last-child {
+    transform: translateX(4px);
+}
+
+/* AI编程实践卡片 */
+.practice-card {
+    position: relative;
+}
+
+.practice-description {
+    margin-bottom: 1.5rem;
+}
+
+.practice-description p {
+    margin-bottom: 0.75rem;
+    color: var(--text);
+    font-weight: 500;
+    line-height: 1.7;
+}
+
+.practice-description p:last-child {
+    margin-bottom: 0;
+}
+
+.practice-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    background: linear-gradient(135deg, #8b5cf6, #a855f7);
+    color: white;
+    text-decoration: none;
+    padding: 0.875rem 1.75rem;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);
+}
+
+.practice-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(139, 92, 246, 0.4);
+    background: linear-gradient(135deg, #7c3aed, #9333ea);
+}
+
+.practice-btn i:first-child {
+    font-size: 1.1rem;
+}
+
+.practice-btn i:last-child {
+    font-size: 0.9rem;
+    transition: transform 0.3s ease;
+}
+
+.practice-btn:hover i:last-child {
     transform: translateX(4px);
 }
 
