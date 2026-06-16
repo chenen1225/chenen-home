@@ -620,6 +620,22 @@ body {
     background: linear-gradient(135deg, #7c3aed, #9333ea);
 }
 
+.practice-actions {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+}
+
+.practice-btn.intro-btn {
+    background: linear-gradient(135deg, #1B5EAB, #2563EB);
+    box-shadow: 0 4px 12px rgba(27, 94, 171, 0.3);
+}
+
+.practice-btn.intro-btn:hover {
+    background: linear-gradient(135deg, #15488a, #1d4ed8);
+    box-shadow: 0 8px 20px rgba(27, 94, 171, 0.4);
+}
+
 .practice-btn i:first-child {
     font-size: 1.1rem;
 }
