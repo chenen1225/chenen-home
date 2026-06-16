@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>做高企认定还在手工拼材料？这款AI智能助手把申报周期压缩了70%</title>
+<style>
+  body { font-family: -apple-system, "PingFang SC", "Microsoft YaHei", "Helvetica Neue", sans-serif; line-height: 1.8; color: #333; max-width: 680px; margin: 0 auto; padding: 20px; background: #fff; }
+  h1 { font-size: 22px; font-weight: 700; color: #1a1a1a; text-align: center; margin: 24px 0 16px; line-height: 1.4; }
+  h2 { font-size: 18px; font-weight: 700; color: #1B5EAB; margin: 32px 0 16px; padding-bottom: 10px; border-bottom: 2px solid #E8F0FE; }
+  h3 { font-size: 16px; font-weight: 600; color: #333; margin: 24px 0 12px; padding-left: 12px; border-left: 4px solid #1B5EAB; }
+  h4 { font-size: 15px; font-weight: 600; color: #444; margin: 20px 0 10px; }
+  p { margin: 14px 0; font-size: 15px; text-align: justify; }
+  strong { color: #1a1a1a; }
+  .author { text-align: center; color: #888; font-size: 14px; margin-bottom: 28px; }
+  .highlight-box { background: linear-gradient(135deg, #EEF2FF 0%, #E0F2FE 100%); border-radius: 10px; padding: 20px 24px; margin: 20px 0; border-left: 4px solid #1B5EAB; }
+  table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 14px; }
+  thead th { background: #1B5EAB; color: #fff; padding: 10px 12px; text-align: left; font-weight: 600; }
+  tbody td { padding: 10px 12px; border-bottom: 1px solid #E5E7EB; }
+  tbody tr:nth-child(even) { background: #F9FAFB; }
+
+  /* 单图样式 */
+  .single-image { text-align: center; margin: 24px 0; }
+  .single-image img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+    display: block;
+    margin: 0 auto;
+  }
+  .image-caption {
+    text-align: center;
+    color: #6B7280;
+    font-size: 13px;
+    margin-top: 10px;
+    line-height: 1.6;
+  }
+
+  /* 轮播图样式 */
+  .carousel-wrapper {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    border-radius: 10px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+    margin: 24px 0;
+    background: #f5f7fa;
+  }
+  .carousel-viewport {
+    position: relative;
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+    touch-action: pan-y pinch-zoom;
+    -webkit-user-select: none;
+    user-select: none;
+  }
+  .carousel-track {
+    display: flex;
+    transition: transform 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    will-change: transform;
+  }
+  .carousel-slide {
+    flex-shrink: 0;
+    width: 100%;
+    display: block;
+    line-height: 0;
+  }
+  .carousel-slide img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  /* 左右导航箭头 */
+  .carousel-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 36px;
+    height: 36px;
+    background: rgba(27,94,171,0.85);
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    opacity: 0;
+    transition: opacity 0.25s, background 0.25s, transform 0.2s;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.18);
+  }
+  .carousel-arrow:hover {
+    background: rgba(27,94,171,1);
+    transform: translateY(-50%) scale(1.06);
+  }
+  .carousel-arrow.prev { left: 10px; }
+  .carousel-arrow.next { right: 10px; }
+  .carousel-wrapper:hover .carousel-arrow { opacity: 1; }
+  .carousel-arrow svg {
+    width: 17px;
+    height: 17px;
+    fill: currentColor;
+    pointer-events: none;
+  }
+  /* 底部指示器 */
+  .carousel-dots {
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+    padding: 10px 0 14px;
+    -webkit-user-select: none;
+    user-select: none;
+  }
+  .carousel-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: rgba(156,163,175,0.55);
+    cursor: pointer;
+    transition: all 0.3s;
+    flex-shrink: 0;
+  }
+  .carousel-dot.active {
+    background: #1B5EAB;
+    transform: scale(1.22);
+  }
+  /* 计数标签 */
+  .carousel-counter {
+    position: absolute;
+    bottom: 52px;
+    right: 12px;
+    background: rgba(0,0,0,0.48);
+    color: #fff;
+    font-size: 11px;
+    padding: 3px 9px;
+    border-radius: 999px;
+    z-index: 10;
+    letter-spacing: 0.3px;
+  }
+
+  .feature-list { background: #F9FAFB; border-radius: 10px; padding: 20px 24px; margin: 16px 0; }
+  .feature-list p { margin: 8px 0; font-size: 14.5px; }
+  .cta-box { background: linear-gradient(135deg, #1B5EAB 0%, #2563EB 100%); color: #fff; border-radius: 12px; padding: 24px; margin: 28px 0; text-align: center; }
+  .cta-box p { color: rgba(255,255,255,0.95); margin: 8px 0; }
+  .disclaimer { background: #FFFBEA; border: 1px solid #FCD34D; border-radius: 8px; padding: 16px 20px; margin: 24px 0; font-size: 13px; color: #92400E; }
+  .disclaimer p { margin: 6px 0; font-size: 13px; }
+  ul, ol { margin: 12px 0; padding-left: 24px; }
+  li { margin: 6px 0; font-size: 14.5px; }
+  hr { border: none; border-top: 1px solid #E5E7EB; margin: 32px 0; }
+</style>
+</head>
+<body>
+
+<h1>做高企认定还在手工拼材料？<br>这款AI智能助手把申报周期压缩了70%</h1>
+<p class="author">文 / 陈恩</p>
+
+<div class="single-image">
+<img src="assets/images/gaoqi/cover.jpg" alt="高企认定智能助手" />
+</div>
+
+<p>每年高企申报季，做项目申报的同行们大概都有过这种体验——</p>
+
+<div class="highlight-box">
+<p><strong>打开一个空白Word文档，开始一项一项填：立项报告、中期报告、验收报告、成果转化说明、研发管理制度……十几个文档，每个都要几千字。</strong> 填到第三份就开始怀疑人生，填到第五份发现前后逻辑对不上，填到最后发现知识产权和研发项目关联不上……</p>
+</div>
+
+<p>这还不是最要命的。最要命的是——</p>
+
+<hr>
+
+<h2>一、高企认定材料到底有多"碎"？</h2>
+
+<p>高新技术企业认定，表面上看是"一套材料"，实际上涉及 <strong>四大评分维度、16项管理制度、11类证明文件</strong>：</p>
+
+<table>
+<thead><tr><th>维度</th><th>核心内容</th><th>材料数量</th></tr></thead>
+<tbody>
+<tr><td>知识产权（≤30分）</td><td>发明专利、实用新型、软著</td><td>15+项</td></tr>
+<tr><td>科技成果转化（≤30分）</td><td>RD项目全套文书、PS产品说明</td><td>每个项目5-8份</td></tr>
+<tr><td>研发组织管理（≤20分）</td><td>16项管理制度及执行证明</td><td>20+份</td></tr>
+<tr><td>企业成长性（≤20分）</td><td>三年财务数据、审计报告</td><td>10+份</td></tr>
+</tbody>
+</table>
+
+<p><strong>一个完整的高企申报材料包，轻则300页，重则600页以上。</strong></p>
+
+<p>而且这些材料不是孤立的——<strong>知识产权要支撑研发项目，研发项目要对应高新技术产品，产品要有销售证据，财务数据要把所有费用归集清楚</strong>。任何一个环节出错，都可能导致评审扣分甚至一票否决。</p>
+
+<p>传统做法是什么？Excel表格管理 + Word手动编写 + 人工核对逻辑。一套下来，熟练的服务机构也要 <strong>2-4周</strong>，不熟练的企业自己摸索，<strong>1-2个月</strong>都是常事。</p>
+
+<hr>
+
+<h2>二、我们做了一个智能助手</h2>
+
+<p>陈恩团队花了很长时间研究高企认定的全流程痛点，结合AI大模型能力，开发了一款 <strong>「高企认定智能助手」桌面端软件</strong>。</p>
+
+<p>先看几张系统截图：</p>
+
+<!-- 占位符1：软件主界面截图 - 单图 -->
+<div class="single-image">
+<img src="assets/images/gaoqi/1：软件主界面截图.png" alt="软件主界面截图" />
+<p class="image-caption">软件主界面 — 左侧14个功能模块导航菜单<br>涵盖企业信息录入、高企智能评测、研发活动管理、知识产权管理等全流程功能</p>
+</div>
+
+<!-- 占位符2：高企智能评测界面 - 单图 -->
+<div class="single-image">
+<img src="assets/images/gaoqi/2：高企智能评测界面.png" alt="高企智能评测界面" />
+<p class="image-caption">高企智能评测模块 — 核心门槛排查 + 四维评分雷达图 + 综合得分诊断建议</p>
+</div>
+
+<!-- 占位符3：创新知识图谱界面 - 单图 -->
+<div class="single-image">
+<img src="assets/images/gaoqi/3：创新知识图谱界面.png" alt="创新知识图谱界面" />
+<p class="image-caption">创新知识图谱 — 企业→资源→RD→IP→PS 全链路可视化证据链网络</p>
+</div>
+
+<hr>
+
+<h2>三、它能做什么？</h2>
+
+<h3>🔍 第一件事：先给你做个"体检"</h3>
+
+<p>很多企业一上来就闷头准备材料，准备到一半才发现——科技人员占比不够、研发费用比例不够、高新产品收入不达标……</p>
+
+<p><strong>智能评测功能</strong>就是解决这个问题的。输入企业基本数据后，系统会自动进行：</p>
+
+<div class="feature-list">
+<p>✅ <strong>7项一票否决条件逐一检查</strong>（成立年限、知识产权数量、研发费用占比等）</p>
+<p>📊 <strong>四大维度智能评分</strong>（知识产权、科技成果转化、组织管理水平、企业成长性）</p>
+<p>🎯 <strong>精准诊断建议</strong>（明确告诉你哪项薄弱、差多少、怎么补）</p>
+</div>
+
+<!-- 占位符4：测评报告截图 - 轮播 5张 -->
+<div class="carousel-wrapper" data-carousel-id="report" data-interval="4000">
+  <div class="carousel-viewport">
+    <div class="carousel-track">
+      <div class="carousel-slide"><img src="assets/images/gaoqi/4：测评报告截图-1.png" alt="测评报告第1页" /></div>
+      <div class="carousel-slide"><img src="assets/images/gaoqi/4：测评报告截图-2.png" alt="测评报告第2页" /></div>
+      <div class="carousel-slide"><img src="assets/images/gaoqi/4：测评报告截图-3.png" alt="测评报告第3页" /></div>
+      <div class="carousel-slide"><img src="assets/images/gaoqi/4：测评报告截图-4.png" alt="测评报告第4页" /></div>
+      <div class="carousel-slide"><img src="assets/images/gaoqi/4：测评报告截图-5.png" alt="测评报告第5页" /></div>
+    </div>
+  </div>
+  <button class="carousel-arrow prev" aria-label="上一张"><svg viewBox="0 0 24 24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg></button>
+  <button class="carousel-arrow next" aria-label="下一张"><svg viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg></button>
+  <span class="carousel-counter">1 / 5</span>
+  <div class="carousel-dots"></div>
+</div>
+<p class="image-caption" style="text-align:center;margin-top:-12px;">高企测评报告（共5页）— 核心门槛排查 + 四维评分预测 + 改进建议，一键导出Word</p>
+
+<h3>📝 第二件事：AI帮你写材料</h3>
+
+<p>这是整个系统最核心的能力。传统做法需要人工编写的文档，现在都可以 <strong>AI一键生成</strong>：</p>
+
+<h4>研发项目管理（RD）：</h4>
+<p>正向立项或逆向推理两种模式：</p>
+<ul>
+<li><strong>正向立项</strong>：填写项目基本信息 → 归集研发资源 → AI生成立项书</li>
+<li><strong>逆向推理（推荐）</strong>：已有知识产权 → AI反推研发项目 → 自动生成立项方案</li>
+</ul>
+
+<p>五阶段文书体系全覆盖：</p>
+<ol>
+<li>立项报告 + 立项决议</li>
+<li>中期报告（支持多阶段）</li>
+<li>验收报告</li>
+<li>成果转化报告</li>
+</ol>
+
+<!-- 占位符5：研发活动管理界面 - 轮播 7张 -->
+<div class="carousel-wrapper" data-carousel-id="rd" data-interval="3500">
+  <div class="carousel-viewport">
+    <div class="carousel-track">
+      <div class="carousel-slide"><img src="assets/images/gaoqi/5：研发活动管理界面-1.png" alt="研发活动管理1" /></div>
+      <div class="carousel-slide"><img src="assets/images/gaoqi/5：研发活动管理界面-2.png" alt="研发活动管理2" /></div>
+      <div class="carousel-slide"><img src="assets/images/gaoqi/5：研发活动管理界面-3.png" alt="研发活动管理3" /></div>
+      <div class="carousel-slide"><img src="assets/images/gaoqi/5：研发活动管理界面-4.png" alt="研发活动管理4" /></div>
+      <div class="carousel-slide"><img src="assets/images/gaoqi/5：研发活动管理界面-5.png" alt="研发活动管理5" /></div>
+      <div class="carousel-slide"><img src="assets/images/gaoqi/5：研发活动管理界面-6.png" alt="研发活动管理6" /></div>
+      <div class="carousel-slide"><img src="assets/images/gaoqi/5：研发活动管理界面-7.png" alt="研发活动管理7" /></div>
+    </div>
+  </div>
+  <button class="carousel-arrow prev" aria-label="上一张"><svg viewBox="0 0 24 24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg></button>
+  <button class="carousel-arrow next" aria-label="下一张"><svg viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg></button>
+  <span class="carousel-counter">1 / 7</span>
+  <div class="carousel-dots"></div>
+</div>
+<p class="image-caption" style="text-align:center;margin-top:-12px;">研发活动管理 — AI辅助正向立项 / 逆向推理，五阶段文书全覆盖（立项→中期→验收→转化）</p>
+
+<h4>知识产权管理（IP）：</h4>
+<p>三种录入方式任选：</p>
+<ul>
+<li>单条手动录入</li>
+<li>Excel批量导入（支持从企查查/水滴信用下载）</li>
+<li><strong>OCR截图识别</strong>（直接截取网页图片粘贴识别，每条仅2积分）</li>
+</ul>
+
+<!-- 占位符6：知识产权批量导入和OCR识别界面 - 轮播 3张 -->
+<div class="carousel-wrapper" data-carousel-id="ip" data-interval="4000">
+  <div class="carousel-viewport">
+    <div class="carousel-track">
+      <div class="carousel-slide"><img src="assets/images/gaoqi/6：知识产权批量导入和OCR识别界面-1.png" alt="IP管理1" /></div>
+      <div class="carousel-slide"><img src="assets/images/gaoqi/6：知识产权批量导入和OCR识别界面-2.png" alt="IP管理2" /></div>
+      <div class="carousel-slide"><img src="assets/images/gaoqi/6：知识产权批量导入和OCR识别界面-3.png" alt="IP管理3" /></div>
+    </div>
+  </div>
+  <button class="carousel-arrow prev" aria-label="上一张"><svg viewBox="0 0 24 24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg></button>
+  <button class="carousel-arrow next" aria-label="下一张"><svg viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg></button>
+  <span class="carousel-counter">1 / 3</span>
+  <div class="carousel-dots"></div>
+</div>
+<p class="image-caption" style="text-align:center;margin-top:-12px;">知识产权管理 — 一键编号 / 批量导出 / 批量导入 / OCR截图识别，每条仅需2积分</p>
+
+<h4>高新技术产品（PS）：</h4>
+<p>填写产品基本信息后，AI自动生成：</p>
+<ul>
+<li>关键技术及主要技术指标（400字以内）</li>
+<li>与同类产品的竞争优势</li>
+<li>知识产权支撑作用说明</li>
+</ul>
+
+<h4>组织管理制度（16项全覆盖）：</h4>
+
+<table>
+<thead><tr><th>分类</th><th>制度数量</th><th>示例</th></tr></thead>
+<tbody>
+<tr><td>研发管理制度</td><td>5项</td><td>研发组织制度、核算体系、项目管理制度等</td></tr>
+<tr><td>技术中心&产学研</td><td>2项</td><td>技术中心成立文件、产学研合作协议</td></tr>
+<tr><td>创新平台制度</td><td>4项</td><td>开放式创新创业平台制度、科技成果转化奖励制度</td></tr>
+<tr><td>人才&考核制度</td><td>5项</td><td>人才引进办法、培训管理制度、绩效考核制度等</td></tr>
+</tbody>
+</table>
+
+<p><strong>每一项都可以AI一键生成，基于企业真实情况定制，不是通用模板！</strong></p>
+
+<!-- 占位符7：组织管理制度界面 - 轮播 2张 -->
+<div class="carousel-wrapper" data-carousel-id="mgmt" data-interval="4500">
+  <div class="carousel-viewport">
+    <div class="carousel-track">
+      <div class="carousel-slide"><img src="assets/images/gaoqi/7：组织管理制度界面-1.png" alt="组织管理制度1" /></div>
+      <div class="carousel-slide"><img src="assets/images/gaoqi/7：组织管理制度界面-2.png" alt="组织管理制度2" /></div>
+    </div>
+  </div>
+  <button class="carousel-arrow prev" aria-label="上一张"><svg viewBox="0 0 24 24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg></button>
+  <button class="carousel-arrow next" aria-label="下一张"><svg viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg></button>
+  <span class="carousel-counter">1 / 2</span>
+  <div class="carousel-dots"></div>
+</div>
+<p class="image-caption" style="text-align:center;margin-top:-12px;">组织管理制度 — 四大类共16项制度，卡片式布局，一键生成+下载</p>
+
+<h3>🔗 第三件事：帮你查逻辑漏洞</h3>
+
+<p>材料写得再漂亮，如果 <strong>前后矛盾、数据打架、证据链断裂</strong>，一样会被专家质疑。</p>
+
+<p>系统的 <strong>「逻辑自洽体检」</strong> 功能会做三件事：</p>
+
+<div class="feature-list">
+<p>🔍 <strong>快速检测</strong>：各模块数据完整性、一致性检查</p>
+<p>🧠 <strong>深度分析</strong>：AI分析研发项目与IP的关联性、产品与技术的匹配度、财务数据合理性</p>
+<p>🎯 <strong>优先修复</strong>：按严重程度排序，告诉你先改哪个</p>
+</div>
+
+<!-- 占位符8：逻辑自洽体检界面 - 单图 -->
+<div class="single-image">
+<img src="assets/images/gaoqi/8：逻辑自洽体检界面.png" alt="逻辑自洽体检界面" />
+<p class="image-caption">逻辑自洽体检 — 一键检测 + 深度分析 + TOP6优先修复建议</p>
+</div>
+
+<h3>🌐 第四件事：产学研合同也能AI起草</h3>
+
+<p>选择关联的研发项目 → 系统读取立项报告内容 → AI根据技术方案生成标准技术合同 → 下载签字盖章上传。</p>
+
+<p><strong>合同的技术内容严格基于立项报告展开，确保前后一致。</strong>（消耗10积分）</p>
+
+<hr>
+
+<h2>四、为什么做这个？</h2>
+
+<p>陈恩团队的理念很简单—— <strong>让AI处理重复劳动，让人专注专业判断。</strong></p>
+
+<p>高企认定这件事，<strong>真正的专业价值在于对企业技术路线的梳理、对政策要求的准确把握、对评审逻辑的深入理解</strong>，而不是在一遍一遍地复制粘贴、排版格式、核对这些机械性工作上消耗时间。</p>
+
+<p>我们做这个系统，就是为了把这些机械性工作交给AI：</p>
+
+<table>
+<thead><tr><th>对比项</th><th>传统做法</th><th>使用智能助手</th></tr></thead>
+<tbody>
+<tr><td>材料编写</td><td>2-4周人工编写</td><td>1-3天AI生成</td></tr>
+<tr><td>数据核对</td><td>逐项人工比对</td><td>系统自动体检</td></tr>
+<tr><td>逻辑一致性</td><td>经验依赖，容易遗漏</td><td>AI全方位交叉验证</td></tr>
+<tr><td>多企业管理</td><td>混乱，容易串数据</td><td>多企业独立存储</td></tr>
+<tr><td>数据安全</td><td>云端工具存在泄露风险</td><td><strong>全部本地存储</strong></td></tr>
+</tbody>
+</table>
+
+<p><strong>特别强调：所有数据保存在本地电脑，不会上传到云端。</strong> 这一点对于重视信息安全的企业和同时服务多个客户的服务机构来说，至关重要。</p>
+
+<h4>适用对象</h4>
+<div class="feature-list">
+<p>✅ <strong>科技型中小企业</strong>：自己动手完成高企申报，省去数万元的服务费</p>
+<p>✅ <strong>科技服务机构</strong>：提升服务效率，一个人能同时服务更多客户</p>
+<p>✅ <strong>财税代理机构</strong>：拓展高企申报业务，降低专业门槛</p>
+</div>
+
+<h4>怎么用？</h4>
+<ol>
+<li>下载安装桌面端软件（Windows 10/11）</li>
+<li>手机号注册，绑定企业信息</li>
+<li>配置AI模型（硅基流动平台，新用户送16元代金券）</li>
+<li>开始使用（新用户赠送100积分，足够基础体验）</li>
+</ol>
+
+<h4>积分与套餐</h4>
+<table>
+<thead><tr><th>套餐</th><th>价格</th><th>积分</th><th>适合场景</th></tr></thead>
+<tbody>
+<tr><td>体验包</td><td>¥999</td><td>333积分</td><td>初次体验、培训引流</td></tr>
+<tr><td>起步包</td><td>¥2,999</td><td>1,000积分</td><td>小微团队</td></tr>
+<tr style="background:#EFF6FF;"><td><strong>专业包（推荐⭐）</strong></td><td><strong>¥4,999</strong></td><td><strong>2,000积分</strong></td><td><strong>中小企业完整申报</strong></td></tr>
+<tr><td>旗舰包</td><td>¥8,999</td><td>4,000积分</td><td>中大型企业、多项目</td></tr>
+<tr><td>企业定制</td><td>面议</td><td>按需定制</td><td>私有化部署</td></tr>
+</tbody>
+</table>
+
+<p><strong>积分不过期，用完可随时续费。</strong></p>
+
+<hr>
+
+<div class="cta-box">
+<p style="font-size:18px;font-weight:600;">高企认定智能助手已正式发布，欢迎下载体验！</p>
+<p>→ 下载地址：（https://drive.weixin.qq.com/s?k=AJwA-wdLAF4CUVbktZ）</p>
+<p>→ 操作问题：查看完整《操作说明书》（https://drive.weixin.qq.com/s?k=AJwA-wdLAF4M3PyotC）或联系客服获取帮助</p>
+</div>
+
+<div class="disclaimer">
+<p><strong>免责声明：</strong></p>
+<p>1. 本软件为辅助工具，生成的材料仅供参考，请根据企业实际情况修改完善后使用。</p>
+<p>2. 高企认定结果以主管部门评审为准，本软件不对认定结果做出任何承诺。</p>
+<p>3. AI生成内容可能存在偏差，重要材料建议经专业人员审核后使用。</p>
+<p>4. 积分规则和套餐价格如有调整，以软件内最新显示为准。</p>
+</div>
+
+<script>
+/* ========== 轮播组件初始化 ========== */
+(function() {
+  var carousels = document.querySelectorAll('.carousel-wrapper[data-carousel-id]');
+
+  carousels.forEach(function(wrapper) {
+    var track = wrapper.querySelector('.carousel-track');
+    if (!track) return;
+
+    var slides = Array.from(track.querySelectorAll('.carousel-slide'));
+    var countEl = wrapper.querySelector('.carousel-counter');
+    var dotsContainer = wrapper.querySelector('.carousel-dots');
+    var prevBtn = wrapper.querySelector('.carousel-arrow.prev');
+    var nextBtn = wrapper.querySelector('.carousel-arrow.next');
+    var intervalMs = parseInt(wrapper.dataset.interval || '3500', 10);
+    var totalSlides = slides.length;
+
+    // 初始化索引和状态
+    var index = 0;
+    var timer = null;
+    var startX = 0, startY = 0, isDragging = false, moved = false;
+    var dragThreshold = 40;
+    var isPausedByUser = false;
+
+    // 更新UI状态
+    function update() {
+      track.style.transform = 'translateX(' + (-index * 100) + '%)';
+      // 更新计数器
+      if (countEl) countEl.textContent = (index + 1) + ' / ' + totalSlides;
+      // 更新圆点
+      if (dotsContainer) {
+        Array.from(dotsContainer.children).forEach(function(dot, i) {
+          dot.classList.toggle('active', i === index);
+        });
+      }
+    }
+
+    function goTo(newIndex) {
+      if (newIndex < 0) newIndex = totalSlides - 1;
+      else if (newIndex >= totalSlides) newIndex = 0;
+      index = newIndex;
+      update();
+    }
+
+    // 自动播放控制
+    function startAutoPlay() {
+      stopAutoPlay();
+      timer = setInterval(function() {
+        goTo(index + 1);
+      }, intervalMs);
+    }
+    function stopAutoPlay() {
+      if (timer) { clearInterval(timer); timer = null; }
+    }
+    function pauseAutoPlay() {
+      if (!isPausedByUser) { stopAutoPlay(); }
+    }
+    function resumeAutoPlay() {
+      if (!isPausedByUser) { startAutoPlay(); }
+    }
+
+    // 构建圆点
+    if (dotsContainer && totalSlides > 1) {
+      for (var i = 0; i < totalSlides; i++) {
+        var dot = document.createElement('span');
+        dot.className = 'carousel-dot' + (i === 0 ? ' active' : '');
+        dot.addEventListener('click', function(idx) {
+          return function() {
+            index = idx;
+            update();
+          };
+        }(i));
+        dotsContainer.appendChild(dot);
+      }
+    }
+
+    // 箭头按钮事件
+    if (prevBtn) {
+      prevBtn.addEventListener('click', function(e) { e.stopPropagation(); goTo(index - 1); });
+    }
+    if (nextBtn) {
+      nextBtn.addEventListener('click', function(e) { e.stopPropagation(); goTo(index + 1); });
+    }
+
+    // 触摸滑动事件
+    var viewport = wrapper.querySelector('.carousel-viewport');
+
+    function onPointerDown(e) {
+      if (!e.touches || e.touches.length <= 1) {
+        isDragging = true;
+        moved = false;
+        startX = e.touches ? e.touches[0].clientX : e.clientX;
+        startY = e.touches ? e.touches[0].clientY : e.clientY;
+        pauseAutoPlay();
+      }
+    }
+    function onPointerMove(e) {
+      if (!isDragging) return;
+      var cx = e.touches ? e.touches[0].clientX : e.clientX;
+      var cy = e.touches ? e.touches[0].clientY : e.clientY;
+      var dx = cx - startX;
+      var dy = cy - startY;
+      if (Math.abs(dx) > Math.abs(dy)) {
+        moved = true;
+        e.preventDefault();
+        // 拖拽时实时偏移
+        var progress = dx / wrapper.offsetWidth;
+        var baseOffset = (-index * 100);
+        var dragOffset = progress * 100;
+        track.style.transform = 'translateX(' + (baseOffset + dragOffset) + '%)';
+        track.style.transition = 'none';
+      }
+    }
+    function onPointerUp(e) {
+      if (!isDragging) return;
+      isDragging = false;
+      track.style.transition = '';
+      var cx = e.changedTouches ? e.changedTouches[0].clientX : e.clientX;
+      var dx = cx - startX;
+      if (Math.abs(dx) >= dragThreshold && moved) {
+        if (dx > 0) { goTo(index - 1); } else { goTo(index + 1); }
+      } else {
+        update();
+      }
+      resumeAutoPlay();
+    }
+
+    if (viewport) {
+      viewport.addEventListener('touchstart', onPointerDown, { passive: true });
+      viewport.addEventListener('touchmove', onPointerMove, { passive: false });
+      viewport.addEventListener('touchend', onPointerUp, { passive: true });
+      // 鼠标拖拽
+      viewport.addEventListener('mousedown', onPointerDown, { passive: true });
+      document.addEventListener('mousemove', onPointerMove, { passive: true });
+      document.addEventListener('mouseup', onPointerUp, { passive: true });
+    }
+
+    // 鼠标悬停暂停
+    wrapper.addEventListener('mouseenter', pauseAutoPlay);
+    wrapper.addEventListener('mouseleave', resumeAutoPlay);
+
+    // 键盘支持
+    wrapper.setAttribute('tabindex', '0');
+    wrapper.addEventListener('keydown', function(e) {
+      if (e.key === 'ArrowLeft') { goTo(index - 1); e.preventDefault(); }
+      else if (e.key === 'ArrowRight') { goTo(index + 1); e.preventDefault(); }
+    });
+
+    // 初始化显示
+    update();
+
+    // 启动自动轮播
+    if (totalSlides > 1) {
+      startAutoPlay();
+    }
+  });
+})();
+</script>
+
+</body>
+</html>

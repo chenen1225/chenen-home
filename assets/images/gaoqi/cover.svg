@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="500" viewBox="0 0 900 500">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1B5EAB;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#2563EB;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#3B82F6;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <rect width="900" height="500" fill="url(#bg)"/>
+  <circle cx="750" cy="80" r="200" fill="rgba(255,255,255,0.05)"/>
+  <circle cx="100" cy="420" r="150" fill="rgba(255,255,255,0.04)"/>
+  <text x="450" y="180" text-anchor="middle" fill="#fff" font-size="52" font-weight="700" font-family="-apple-system,'PingFang SC','Microsoft YaHei',sans-serif">高企认定智能助手</text>
+  <text x="450" y="245" text-anchor="middle" fill="rgba(255,255,255,0.9)" font-size="28" font-family="-apple-system,'PingFang SC','Microsoft YaHei',sans-serif">AI驱动 · 全流程自动化 · 本地安全存储</text>
+  <line x1="250" y1="280" x2="650" y2="280" stroke="rgba(255,255,255,0.3)" stroke-width="2"/>
+  <g transform="translate(180, 320)">
+    <rect x="0" y="0" width="130" height="70" rx="12" fill="rgba(255,255,255,0.15)"/>
+    <text x="65" y="30" text-anchor="middle" fill="#fff" font-size="14" font-weight="600">智能评测</text>
+    <text x="65" y="52" text-anchor="middle" fill="rgba(255,255,255,0.7)" font-size="11">四维评分诊断</text>
+  </g>
+  <g transform="translate(335, 320)">
+    <rect x="0" y="0" width="130" height="70" rx="12" fill="rgba(255,255,255,0.15)"/>
+    <text x="65" y="30" text-anchor="middle" fill="#fff" font-size="14" font-weight="600">AI材料生成</text>
+    <text x="65" y="52" text-anchor="middle" fill="rgba(255,255,255,0.7)" font-size="11">一键生成文档</text>
+  </g>
+  <g transform="translate(490, 320)">
+    <rect x="0" y="0" width="130" height="70" rx="12" fill="rgba(255,255,255,0.15)"/>
+    <text x="65" y="30" text-anchor="middle" fill="#fff" font-size="14" font-weight="600">逻辑体检</text>
+    <text x="65" y="52" text-anchor="middle" fill="rgba(255,255,255,0.7)" font-size="11">自洽性检查</text>
+  </g>
+  <text x="450" y="440" text-anchor="middle" fill="rgba(255,255,255,0.6)" font-size="16" font-family="-apple-system,'PingFang SC','Microsoft YaHei',sans-serif">申报周期压缩 70% · 数据全部本地存储</text>
+  <text x="450" y="470" text-anchor="middle" fill="#F59E0B" font-size="18" font-weight="600" font-family="-apple-system,'PingFang SC','Microsoft YaHei',sans-serif">科研云出品</text>
+</svg>
