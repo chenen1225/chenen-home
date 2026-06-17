@@ -1,0 +1,252 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>gaoqi-ai-assistant-wechat</title>
+  <style>:root {
+  --md-primary-color: #0F4C81;
+  --md-font-family: -apple-system-font,BlinkMacSystemFont, Helvetica Neue, PingFang SC, Hiragino Sans GB , Microsoft YaHei UI , Microsoft YaHei ,Arial,sans-serif;
+  --md-font-size: 16px;
+  --foreground: 0 0% 3.9%;
+  --blockquote-background: #f7f7f7;
+}
+
+body {
+  margin: 0;
+  padding: 24px;
+  background: #ffffff;
+}
+
+#output {
+  max-width: 860px;
+  margin: 0 auto;
+}
+
+/**
+ * MD 基础主题样式
+ * 包含所有元素的基础样式和 CSS 变量定义
+ */
+
+/* ==================== 容器样式 ==================== */
+section,
+container {
+  font-family: var(--md-font-family);
+  font-size: var(--md-font-size);
+  line-height: 1.75;
+  text-align: left;
+}
+
+/* 确保 #output 容器应用基础样式 */
+#output {
+  font-family: var(--md-font-family);
+  font-size: var(--md-font-size);
+  line-height: 1.75;
+  text-align: left;
+}
+
+/* 去除第一个元素的 margin-top */
+#output section > :first-child {
+  margin-top: 0 !important;
+}
+
+
+/**
+ * MD 优雅主题 (@brzhang)
+ * 在默认主题基础上添加优雅的视觉效果
+ */
+
+/* ==================== 标题样式 ==================== */
+h1 {
+  padding: 0.5em 1em;
+  border-bottom: 2px solid var(--md-primary-color);
+  font-size: calc(var(--md-font-size) * 1.4);
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+  padding: 0.3em 1em;
+  border-radius: 8px;
+  font-size: calc(var(--md-font-size) * 1.3);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+h3 {
+  padding-left: 12px;
+  font-size: calc(var(--md-font-size) * 1.2);
+  border-left: 4px solid var(--md-primary-color);
+  border-bottom: 1px dashed var(--md-primary-color);
+}
+
+h4 {
+  font-size: calc(var(--md-font-size) * 1.1);
+}
+
+h5 {
+  font-size: var(--md-font-size);
+}
+
+h6 {
+  font-size: var(--md-font-size);
+}
+
+/* ==================== 引用块 ==================== */
+blockquote {
+  font-style: italic;
+  padding: 1em 1em 1em 2em;
+  border-left: 4px solid var(--md-primary-color);
+  border-radius: 6px;
+  color: rgba(0, 0, 0, 0.6);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  margin-bottom: 1em;
+}
+
+.markdown-alert {
+  font-style: italic;
+}
+
+/* ==================== 代码块 ==================== */
+pre.code__pre,
+.hljs.code__pre {
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.05);
+}
+
+pre.code__pre > code,
+.hljs.code__pre > code {
+  font-family:
+    'Fira Code',
+    Menlo,
+    Operator Mono,
+    Consolas,
+    Monaco,
+    monospace;
+}
+
+/* ==================== 图片 ==================== */
+img {
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+figcaption,
+.md-figcaption {
+  text-align: center;
+  color: #888;
+  font-size: 0.8em;
+}
+
+/* ==================== 列表 ==================== */
+ol {
+  padding-left: 1.5em;
+}
+
+ul {
+  list-style: none;
+  padding-left: 1.5em;
+}
+
+li {
+  margin: 0.5em 8px;
+}
+
+/* ==================== 分隔线 ==================== */
+hr {
+  height: 1px;
+  border: none;
+  margin: 2em 0;
+  background: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0));
+}
+
+/* ==================== 表格 ==================== */
+table {
+  border-collapse: separate;
+  border-spacing: 0;
+  border-radius: 8px;
+  margin: 1em 8px;
+  color: hsl(var(--foreground));
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+thead {
+  color: #fff;
+}
+
+td {
+  padding: 0.5em 1em;
+}
+
+/* ==================== 强调 ==================== */
+em {
+  font-style: italic;
+  font-size: inherit;
+}
+
+/* ==================== 链接 ==================== */
+a {
+  color: #576b95;
+  text-decoration: none;
+}
+</style>
+</head>
+<body>
+  <div id="output">
+<section class="container"><h1 class="h1" data-heading="true">做高企认定还在手工拼材料？这款AI智能助手把申报周期压缩了70%</h1><figure><img src="assets/images/gaoqi/cover.jpg" alt="封面"/></figure><p class="p">每年高企申报季，做项目申报的同行们大概都有过这种体验——</p><blockquote class="blockquote"><p class="p"><strong class="strong">打开一个空白Word文档，开始逐项编写：立项报告、中期报告、验收报告、成果转化说明、研发管理制度……十几份文档，每份几千字。</strong> 写到第三份开始怀疑人生，写到第五份发现前后数据对不上，写到最后发现知识产权和研发项目根本关联不起来……</p></blockquote><p class="p">这还不是最要命的。最要命的是——</p><p class="p"><strong class="strong">你花两个月整理的300页材料，专家评审时只用30分钟翻阅。</strong> 知识产权和研发项目对不上号、研发费用归集逻辑说不通、高新产品收入和审计报告打架……这些&quot;硬伤&quot;只要出现一处，整套材料的可信度就大打折扣。偏偏这些问题，往往提交前才被发现——改，来不及；不改，过不了。</p><hr class="hr"></hr><h2 class="h2" data-heading="true">一、高企认定材料到底有多&quot;碎&quot;？</h2><p class="p">高新技术企业认定，表面上看是&quot;一套材料&quot;，实际上涉及 <strong class="strong">四大评分维度、16项管理制度、11类证明文件</strong>：</p>
+        <section style="max-width: 100%; overflow: auto">
+          <table class="preview-table">
+            <thead><th class="th">维度</th><th class="th">核心内容</th><th class="th">材料数量</th></thead>
+            <tbody><tr class="tr"><td class="td">知识产权（≤30分）</td><td class="td">发明专利、实用新型、软著</td><td class="td">15+项</td></tr><tr class="tr"><td class="td">科技成果转化（≤30分）</td><td class="td">RD项目全套文书、PS产品说明</td><td class="td">每个项目5-8份</td></tr><tr class="tr"><td class="td">研发组织管理（≤20分）</td><td class="td">16项管理制度及执行证明</td><td class="td">20+份</td></tr><tr class="tr"><td class="td">企业成长性（≤20分）</td><td class="td">三年财务数据、审计报告</td><td class="td">10+份</td></tr></tbody>
+          </table>
+        </section>
+      <p class="p"><strong class="strong">一个完整的高企申报材料包，轻则300页，重则600页以上。</strong></p><p class="p">而且这些材料不是孤立的——<strong class="strong">知识产权要支撑研发项目，研发项目要对应高新技术产品，产品要有销售证据，财务数据要把所有费用归集清楚</strong>。任何一个环节出错，都可能导致评审扣分甚至一票否决。</p><p class="p">传统做法是什么？Excel表格管理 + Word手动编写 + 人工核对逻辑。一套下来，熟练的服务机构也要 <strong class="strong">2-4周</strong>，不熟练的企业自己摸索，<strong class="strong">1-2个月</strong>都是常事。</p><hr class="hr"></hr><h2 class="h2" data-heading="true">二、我们做了一个智能助手</h2><p class="p">陈恩团队花了很长时间研究高企认定的全流程痛点，结合AI大模型能力，开发了一款 <strong class="strong">「高企认定智能助手」桌面端软件</strong>。</p><p class="p">先看几张系统截图：</p><figure><img src="assets/images/gaoqi/01-main.png" alt="软件主界面 — 左侧14个功能模块导航菜单"/></figure><figure><img src="assets/images/gaoqi/02-eval.png" alt="高企智能评测模块 — 核心门槛排查 + 四维评分雷达图"/></figure><figure><img src="assets/images/gaoqi/03-graph.png" alt="创新知识图谱 — 企业→资源→RD→IP→PS 全链路可视化"/></figure><hr class="hr"></hr><h2 class="h2" data-heading="true">三、它能做什么？</h2><h3 class="h3" data-heading="true">🔍 第一件事：先给你做个&quot;体检&quot;</h3><p class="p">很多企业一上来就闷头准备材料，准备到一半才发现——科技人员占比不够、研发费用比例不够、高新产品收入不达标……</p><p class="p"><strong class="strong">智能评测功能</strong>就是解决这个问题的。输入企业基本数据后，系统会自动进行：</p><ul class="ul"><li class="listitem">• ✅ <strong class="strong">7项一票否决条件逐一检查</strong>（成立年限、知识产权数量、研发费用占比等）</li><li class="listitem">• 📊 <strong class="strong">四大维度智能评分</strong>（知识产权、科技成果转化、组织管理水平、企业成长性）</li><li class="listitem">• 🎯 <strong class="strong">精准诊断建议</strong>（明确告诉你哪项薄弱、差多少、怎么补）</li></ul><p class="p"><strong class="strong">▼ 高企测评报告（共5页）— 核心门槛排查 + 四维评分预测 + 改进建议，一键导出Word：</strong></p><figure><img src="assets/images/gaoqi/04-report-1.png" alt="测评报告第1页"/></figure><figure><img src="assets/images/gaoqi/04-report-2.png" alt="测评报告第2页"/></figure><figure><img src="assets/images/gaoqi/04-report-3.png" alt="测评报告第3页"/></figure><figure><img src="assets/images/gaoqi/04-report-4.png" alt="测评报告第4页"/></figure><figure><img src="assets/images/gaoqi/04-report-5.png" alt="测评报告第5页"/></figure><h3 class="h3" data-heading="true">📝 第二件事：AI帮你写材料</h3><p class="p">这是整个系统最核心的能力。传统做法需要人工编写的文档，现在都可以 <strong class="strong">AI一键生成</strong>：</p><p class="p"><strong class="strong">研发项目管理（RD）：</strong></p><p class="p">正向立项或逆向推理两种模式：</p><ul class="ul"><li class="listitem">• <strong class="strong">正向立项</strong>：填写项目基本信息 → 归集研发资源 → AI生成立项书</li><li class="listitem">• <strong class="strong">逆向推理（推荐）</strong>：已有知识产权 → AI反推研发项目 → 自动生成立项方案</li></ul><p class="p">五阶段文书体系全覆盖：</p><ol class="ol"><li class="listitem">1. 立项报告 + 立项决议</li><li class="listitem">2. 中期报告（支持多阶段）</li><li class="listitem">3. 验收报告</li><li class="listitem">4. 成果转化报告</li></ol><p class="p"><strong class="strong">▼ 研发活动管理 — AI辅助正向立项/逆向推理，五阶段文书全覆盖：</strong></p><figure><img src="assets/images/gaoqi/05-rd-1.png" alt="研发活动管理1"/></figure><figure><img src="assets/images/gaoqi/05-rd-2.png" alt="研发活动管理2"/></figure><figure><img src="assets/images/gaoqi/05-rd-3.png" alt="研发活动管理3"/></figure><figure><img src="assets/images/gaoqi/05-rd-4.png" alt="研发活动管理4"/></figure><figure><img src="assets/images/gaoqi/05-rd-5.png" alt="研发活动管理5"/></figure><figure><img src="assets/images/gaoqi/05-rd-6.png" alt="研发活动管理6"/></figure><figure><img src="assets/images/gaoqi/05-rd-7.png" alt="研发活动管理7"/></figure><p class="p"><strong class="strong">知识产权管理（IP）：</strong></p><p class="p">三种录入方式任选：</p><ul class="ul"><li class="listitem">• 单条手动录入</li><li class="listitem">• Excel批量导入（支持从企查查/水滴信用下载）</li><li class="listitem">• <strong class="strong">OCR截图识别</strong>（直接截取网页图片粘贴识别，每条仅2积分）</li></ul><p class="p"><strong class="strong">▼ 知识产权管理 — 一键编号/批量导出/批量导入/OCR截图识别：</strong></p><figure><img src="assets/images/gaoqi/06-ip-1.png" alt="IP管理1"/></figure><figure><img src="assets/images/gaoqi/06-ip-2.png" alt="IP管理2"/></figure><figure><img src="assets/images/gaoqi/06-ip-3.png" alt="IP管理3"/></figure><p class="p"><strong class="strong">高新技术产品（PS）：</strong></p><p class="p">填写产品基本信息后，AI自动生成：</p><ul class="ul"><li class="listitem">• 关键技术及主要技术指标（400字以内）</li><li class="listitem">• 与同类产品的竞争优势</li><li class="listitem">• 知识产权支撑作用说明</li></ul><p class="p"><strong class="strong">组织管理制度（16项全覆盖）：</strong></p>
+        <section style="max-width: 100%; overflow: auto">
+          <table class="preview-table">
+            <thead><th class="th">分类</th><th class="th">制度数量</th><th class="th">示例</th></thead>
+            <tbody><tr class="tr"><td class="td">研发管理制度</td><td class="td">5项</td><td class="td">研发组织制度、核算体系、项目管理制度等</td></tr><tr class="tr"><td class="td">技术中心&amp;产学研</td><td class="td">2项</td><td class="td">技术中心成立文件、产学研合作协议</td></tr><tr class="tr"><td class="td">创新平台制度</td><td class="td">4项</td><td class="td">开放式创新创业平台制度、科技成果转化奖励制度</td></tr><tr class="tr"><td class="td">人才&amp;考核制度</td><td class="td">5项</td><td class="td">人才引进办法、培训管理制度、绩效考核制度等</td></tr></tbody>
+          </table>
+        </section>
+      <p class="p"><strong class="strong">每一项都可以AI一键生成，基于企业真实情况定制，不是通用模板！</strong></p><p class="p"><strong class="strong">▼ 组织管理制度 — 四大类共16项制度，卡片式布局，一键生成+下载：</strong></p><figure><img src="assets/images/gaoqi/07-mgmt-1.png" alt="组织管理制度1"/></figure><figure><img src="assets/images/gaoqi/07-mgmt-2.png" alt="组织管理制度2"/></figure><h3 class="h3" data-heading="true">🔗 第三件事：帮你查逻辑漏洞</h3><p class="p">材料写得再漂亮，如果 <strong class="strong">前后矛盾、数据打架、证据链断裂</strong>，一样会被专家质疑。</p><p class="p">系统的 <strong class="strong">「逻辑自洽体检」</strong> 功能会做三件事：</p><ul class="ul"><li class="listitem">• 🔍 <strong class="strong">快速检测</strong>：各模块数据完整性、一致性检查</li><li class="listitem">• 🧠 <strong class="strong">深度分析</strong>：AI分析研发项目与IP的关联性、产品与技术的匹配度、财务数据合理性</li><li class="listitem">• 🎯 <strong class="strong">优先修复</strong>：按严重程度排序，告诉你先改哪个</li></ul><figure><img src="assets/images/gaoqi/08-check.png" alt="逻辑自洽体检 — 一键检测 + 深度分析 + TOP6优先修复建议"/></figure><h3 class="h3" data-heading="true">🌐 第四件事：产学研合同也能AI起草</h3><p class="p">选择关联的研发项目 → 系统读取立项报告内容 → AI根据技术方案生成标准技术合同 → 下载签字盖章上传。</p><p class="p"><strong class="strong">合同的技术内容严格基于立项报告展开，确保前后一致。</strong>（消耗10积分）</p><hr class="hr"></hr><h2 class="h2" data-heading="true">四、为什么做这个？</h2><p class="p">陈恩团队的理念很简单—— <strong class="strong">让AI处理重复劳动，让人专注专业判断。</strong></p><p class="p">高企认定这件事，<strong class="strong">真正的专业价值在于对企业技术路线的梳理、对政策要求的准确把握、对评审逻辑的深入理解</strong>，而不是在一遍一遍地复制粘贴、排版格式、核对这些机械性工作上消耗时间。</p><p class="p">我们做这个系统，就是为了把这些机械性工作交给AI：</p>
+        <section style="max-width: 100%; overflow: auto">
+          <table class="preview-table">
+            <thead><th class="th">对比项</th><th class="th">传统做法</th><th class="th">使用智能助手</th></thead>
+            <tbody><tr class="tr"><td class="td">材料编写</td><td class="td">2-4周人工编写</td><td class="td">1-3天AI生成</td></tr><tr class="tr"><td class="td">数据核对</td><td class="td">逐项人工比对</td><td class="td">系统自动体检</td></tr><tr class="tr"><td class="td">逻辑一致性</td><td class="td">经验依赖，容易遗漏</td><td class="td">AI全方位交叉验证</td></tr><tr class="tr"><td class="td">多企业管理</td><td class="td">混乱，容易串数据</td><td class="td">多企业独立存储</td></tr><tr class="tr"><td class="td">数据安全</td><td class="td">云端工具存在泄露风险</td><td class="td"><strong class="strong">全部本地存储</strong></td></tr></tbody>
+          </table>
+        </section>
+      <p class="p"><strong class="strong">特别强调：所有数据保存在本地电脑，不会上传到云端。</strong> 这一点对于重视信息安全的企业和同时服务多个客户的服务机构来说，至关重要。</p><p class="p"><strong class="strong">适用对象：</strong></p><ul class="ul"><li class="listitem">• ✅ <strong class="strong">科技型中小企业</strong>：自己动手完成高企申报，省去数万元的服务费</li><li class="listitem">• ✅ <strong class="strong">科技服务机构</strong>：提升服务效率，一个人能同时服务更多客户</li><li class="listitem">• ✅ <strong class="strong">财税代理机构</strong>：拓展高企申报业务，降低专业门槛</li></ul><p class="p"><strong class="strong">怎么用？</strong></p><ol class="ol"><li class="listitem">1. 下载安装桌面端软件（Windows 10/11）</li><li class="listitem">2. 手机号注册，绑定企业信息</li><li class="listitem">3. 配置AI模型（硅基流动平台，新用户送16元代金券）</li><li class="listitem">4. 开始使用（新用户赠送100积分，足够基础体验）</li></ol><p class="p"><strong class="strong">积分与套餐：</strong></p>
+        <section style="max-width: 100%; overflow: auto">
+          <table class="preview-table">
+            <thead><th class="th">套餐</th><th class="th">价格</th><th class="th">积分</th><th class="th">适合场景</th></thead>
+            <tbody><tr class="tr"><td class="td">体验包</td><td class="td">¥999</td><td class="td">333积分</td><td class="td">初次体验、培训引流</td></tr><tr class="tr"><td class="td">起步包</td><td class="td">¥2,999</td><td class="td">1,000积分</td><td class="td">小微团队</td></tr><tr class="tr"><td class="td"><strong class="strong">专业包（推荐⭐）</strong></td><td class="td"><strong class="strong">¥4,999</strong></td><td class="td"><strong class="strong">2,000积分</strong></td><td class="td"><strong class="strong">中小企业完整申报</strong></td></tr><tr class="tr"><td class="td">旗舰包</td><td class="td">¥8,999</td><td class="td">4,000积分</td><td class="td">中大型企业、多项目</td></tr><tr class="tr"><td class="td">企业定制</td><td class="td">面议</td><td class="td">按需定制</td><td class="td">私有化部署</td></tr></tbody>
+          </table>
+        </section>
+      <p class="p"><strong class="strong">积分不过期，用完可随时续费。</strong></p><hr class="hr"></hr><p class="p"><strong class="strong">高企认定智能助手已正式发布，欢迎下载体验！</strong></p><p class="p">→ 下载地址：https://drive.weixin.qq.com/s?k=AJwA-wdLAF4CUVbktZ</p><p class="p">→ 操作问题：查看完整《操作说明书》（https://drive.weixin.qq.com/s?k=AJwA-wdLAF4M3PyotC）或联系客服获取帮助</p><hr class="hr"></hr><p class="p"><strong class="strong">免责声明：</strong></p><ol class="ol"><li class="listitem">1. 本软件为辅助工具，生成的材料仅供参考，请根据企业实际情况修改完善后使用。</li><li class="listitem">2. 高企认定结果以主管部门评审为准，本软件不对认定结果做出任何承诺。</li><li class="listitem">3. AI生成内容可能存在偏差，重要材料建议经专业人员审核后使用。</li><li class="listitem">4. 积分规则和套餐价格如有调整，以软件内最新显示为准。</li><li class="listitem">5. <strong class="strong">数据隐私说明：</strong> 本软件所有企业数据、申报材料、财务数据均保存在用户本地电脑，不会上传至任何云端服务器。AI模型调用仅发送必要的生成指令，不传输完整企业资料。</li></ol>
+    <style>
+      .preview-wrapper pre::before {
+        position: absolute;
+        top: 0;
+        right: 0;
+        color: #ccc;
+        text-align: center;
+        font-size: 0.8em;
+        padding: 5px 10px 0;
+        line-height: 15px;
+        height: 15px;
+        font-weight: 600;
+      }
+    </style>
+  
+    <style>
+      .hljs.code__pre > .mac-sign {
+        display: none;
+      }
+    </style>
+  
+    <style>
+      h2 strong {
+        color: inherit !important;
+      }
+    </style>
+  </section>
+  </div>
+</body>
+</html>
